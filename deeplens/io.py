@@ -50,9 +50,10 @@ Represents a reference to an image, can be fetched from disk
 """
 class ImageRef(object):
     
-    def __init__(self, directory, filename):
+    def __init__(self, directory, filename, metadata={}):
         self.directory = directory
         self.filename = filename
+        self.metadata = metadata
 
     def fetch(self):
         return cv2.imread(self.directory + "/" + self.filename)

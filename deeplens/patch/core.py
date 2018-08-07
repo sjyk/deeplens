@@ -19,3 +19,9 @@ class FixedPatchGenerator(PatchGenerator):
             for x in range(self.patchh, height, self.patchh):
                 patchData = img[x-self.patchw:x, y-self.patchh:y, :]
                 yield Patch(imgref, x,y, self.patchw, self.patchh, patchData)
+
+class NullPatchGenerator(PatchGenerator):
+
+    def generatePatches(self, imgref, img):
+        height, width, channels = img.shape
+        yield Patch(imgref,0,0,width, height, img)
