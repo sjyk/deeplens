@@ -3,26 +3,28 @@ This module defines the main io methods in DeepLens. Every
 io method is an iterator.
 """
 from os import listdir
-from os.path import isfile, join
+
 import cv2
 
 """
 Custom error handling class
 """
+
+
 class DeepLensIOError(Exception):
     def __init__(self, message, errors={}):
-
         # Call the base class constructor with the parameters it needs
         super().__init__(message)
 
-        #TODO: nothing added here
+        # TODO: nothing added here
         self.errors = errors
-
 
 
 """
 File scan loads a set of 
 """
+
+
 class FileScan(object):
     def __init__(self, directory):
 
@@ -32,24 +34,27 @@ class FileScan(object):
         except Exception:
             raise DeepLensIOError("Directory " + directory + " not found.")
 
-    #number of iles
+    # number of files
     def size(self):
         return len(self.filelist)
 
     def __str__(self):
-        return "FileScan("  + str(self.filelist) + ")"
+        return "FileScan(" + str(self.filelist) + ")"
 
-    #returns an iterator over numpy arrays
+    # returns an iterator over numpy arrays
     def scan(self, flags=cv2.IMREAD_COLOR):
         for filename in self.filelist:
             image = ImageRef(self.directory, filename)
             yield (image, image.fetch())
 
+
 """
 Represents a reference to an image, can be fetched from disk 
 """
+
+
 class ImageRef(object):
-    
+
     def __init__(self, directory, filename, metadata={}):
         self.directory = directory
         self.filename = filename
@@ -62,12 +67,13 @@ class ImageRef(object):
         return str((self.directory, self.filename))
 
 
-
 """
 A description for the patch object
 """
+
+
 class Patch(object):
-    
+
     def __init__(self, imgref, x, y, w, h, patch, metadata={}):
         self.imgref = imgref
         self.x = x
@@ -77,10 +83,9 @@ class Patch(object):
         self.patch = patch
         self.metadata = metadata
 
-    #resizes a patch to a given size
+    # resizes a patch to a given size
     def resizeTo(self, tw, th):
-        return cv2.resize(self.patch,(tw, th), interpolation = cv2.INTER_CUBIC)
+        return cv2.resize(self.patch, (tw, th), interpolation=cv2.INTER_CUBIC)
 
     def __str__(self):
-        return "Patch(" + str(self.patch.shape) + ") => " + str(self.imgref) 
-
+        return "Patch(" + str(self.patch.shape) + ") => " + str(self.imgref)
