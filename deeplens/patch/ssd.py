@@ -98,7 +98,7 @@ class SSDPatchGenerator(PatchGenerator):
                 x1 = int(detection_dict['detection_boxes'][i][3]*width)
 
                 patch = img[y0:y1,x0:x1,:]
-                metadata = {'tag': self.category_index[detection_dict['detection_classes'][i]]}
+                metadata = {'tag': self.category_index[detection_dict['detection_classes'][i]]['name']}
                 yield Patch(imgref, x0,y0, x1-x0, y1-y0, patch, metadata)
 
 
