@@ -15,6 +15,8 @@ from utils import get_logger, set_up_logging
 parser = argparse.ArgumentParser()
 parser.add_argument("-g", "--is_debug", default=False, type=bool,
                     help="is it the debug mode execution")
+parser.add_argument("-l", "--log_file", default="deeplens.log",
+                    help="The name of the log file.")
 
 
 def run():
@@ -24,7 +26,7 @@ def run():
     if is_debug:
         # process fewer files for the debug mode
         files_dir = "resources/debug/"
-        wait = 3000
+        wait = 3000  # milliseconds
         logger.setLevel(logging.DEBUG)
         logger.debug("DEBUG mode active")
 
@@ -50,7 +52,8 @@ def run():
 if __name__ == "__main__":
     args = parser.parse_args(sys.argv[1:])
     is_debug = args.is_debug
-    set_up_logging()
+    log_file = args.log_file
+    set_up_logging(log_file=log_file)
     logger = get_logger(name=__name__)
 
     run()

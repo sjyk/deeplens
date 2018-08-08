@@ -5,8 +5,7 @@ log_format = '%(asctime)s - %(name)s - %(levelname)s - ' \
              '%(funcName)s(%(lineno)d)- %(message)s'
 
 
-def set_up_logging():
-    log_file = 'deeplens.log'
+def set_up_logging(log_file):
     handlers = [get_console_handler(), get_log_file_handler(log_file)]
     logging.basicConfig(level=logging.INFO, format=log_format,
                         handlers=handlers)
@@ -14,6 +13,13 @@ def set_up_logging():
 
 
 def get_log_file_handler(log_file):
+    """
+    Log into a file.
+
+    :param log_file: the name of the file for logging
+    :return: the handler to log into file
+    """
+    # https://goo.gl/FxA4Mh
     fh = RotatingFileHandler(log_file, mode='a', maxBytes=5 * 1024 * 1024,
                              backupCount=3, encoding=None, delay=0)
     # create formatter
@@ -24,6 +30,11 @@ def get_log_file_handler(log_file):
 
 
 def get_console_handler():
+    """
+    Log into the console.
+
+    :return: console log handler
+    """
     # create console handler and set level to debug
     ch = logging.StreamHandler()
     # create formatter
