@@ -19,7 +19,8 @@ if not os.path.exists(datastore_folder):
 u = UnclusteredPatchFile("test", f, p, h, datastore_folder + "/data.store")
 u.build()  # can comment out after the datastore is built
 
-# select operator to run basic predicates over the data
+# select operator to run basic predicates over the data, visualize all of the
+# patches that have people in them
 s = Select(u, lambda patch: patch.metadata['tag'] == 'person')
 for patch in s.read():
     cv2.imshow('image', patch.patch)
