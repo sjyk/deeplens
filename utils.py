@@ -4,6 +4,9 @@ from logging.handlers import RotatingFileHandler
 log_format = '%(asctime)s - %(name)s - %(levelname)s - ' \
              '%(funcName)s(%(lineno)d)- %(message)s'
 
+"""
+author: Adam Dziedzic ady@uchicago.edu
+"""
 
 def set_up_logging(log_file):
     handlers = [get_console_handler(), get_log_file_handler(log_file)]
