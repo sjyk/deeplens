@@ -48,6 +48,41 @@ class FileScan(object):
             yield (image, image.fetch())
 
 
+class VideoScan(object):
+    def __init__(self, file, fps=24, resize=0.1, sampling=20):
+        self.file = file
+        self.fps = fps
+        self.resize = resize
+        self.sampling = sampling
+
+    def __str__(self):
+        return "VideoScan(" + str(self.file) + ")"
+
+    # returns an iterator over numpy arrays
+    def scan(self, flags=cv2.IMREAD_COLOR):
+        cap = cv2.VideoCapture(self.file)
+        
+        count = 0
+
+        while(cap.isOpened()):
+            ret, frame = cap.read()
+
+            w,h = (0,0)
+            try:
+                w, h,_ = frame.shape
+            except:
+                break
+
+            frame = cv2.resize(frame, (int(h*self.resize), int(w*self.resize)), interpolation=cv2.INTER_CUBIC)
+            image = ImageRef(self.file, count, {'time': float(count)/self.fps})
+            count+=1
+
+            if count % self.sampling == 0:
+                yield (image, frame)
+
+        cap.release()
+
+
 """
 Represents a reference to an image, can be fetched from disk 
 """
@@ -82,6 +117,7 @@ class Patch(object):
         self.w = w
         self.patch = patch
         self.metadata = metadata
+        self.metadata.update(imgref.metadata)
 
     # resizes a patch to a given size
     def resizeTo(self, tw, th):
