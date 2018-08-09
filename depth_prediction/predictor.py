@@ -34,6 +34,22 @@ def show_figure(img):
     plt.show()
 
 
+def process_image(image_path, width, height):
+    """
+    Process the image (e.g. resize).
+
+    :param image_path: the path to the image
+    :param width: the width of the image expected by the model
+    :param height: the height of the image expected by the model
+    :return: the processed and resized images (the resized image can be used to
+    plot is as an original input to the model)
+    """
+    img = Image.open(image_path)
+    resized_img = img.resize([width, height], Image.ANTIALIAS)
+    processed_img = np.array(resized_img).astype('float32')
+    return processed_img, resized_img
+
+
 class Predictor(object):
     def __init__(self, model_path=DEFAULT_MODEL_PATH):
         """
@@ -58,55 +74,60 @@ class Predictor(object):
                                          keep_prob=1, is_training=False)
         self.session = tf.Session()
 
-        # Load the converted parameters
-        logger.info('Loading the model')
+        self._load_model_weights()
 
-        if model_path.endswith(".npy"):
+    def __del__(self):
+        """
+        Close the TensorFlow session.
+        """
+        self.session.close()
+
+    def _load_model_weights(self):
+        # Load the converted parameters
+        logger.info('Loading pre-trained model weights')
+
+        if self.model_path.endswith(".npy"):
             # load the pre-trained model from npy file
-            if os.path.isfile(model_path) is False:
+            if os.path.isfile(self.model_path) is False:
                 model_url = "https://goo.gl/dt2geQ"
                 logger.info("Downloading the model weights ... (the file is "
-                            "about 240 MB big)")
-                self.model_path = urlretrieve(model_url, model_path)
+                            "about 243 MB big)")
+                self.model_path = urlretrieve(model_url, self.model_path)
                 logger.info("Model downloaded successfully")
             self.net.load(self.model_path, self.session)
-        elif model_path.endswith(".ckpt"):
+        elif self.model_path.endswith(".ckpt"):
             # load the pre-trained model from ckpt file
             saver = tf.train.Saver()
-            saver.restore(self.session, model_path)
+            saver.restore(self.session, self.model_path)
         else:
             raise ValueError("Not known saved model weights' extension: "
                              "Expected: .npy or .ckpt, but given file: " +
-                             model_path)
+                             self.model_path)
 
-    def __del__(self):
-        self.session.close()
-
-    def predict(self, image_path):
+    def predict_image(self, image_path):
         """
         For the provided image_path, returns map of the predicted depths.
 
         :param image_path: the path to the input image
         :return: map of the predicted depths and the re-sized input image
         """
-        # Read image
-        img = Image.open(image_path)
-        img = img.resize([self.width, self.height], Image.ANTIALIAS)
-        input_image = img
-        img = np.array(img).astype('float32')
-        img = np.expand_dims(np.asarray(img), axis=0)
+        processed_img, resized_img = process_image(
+            image_path=image_path, width=self.width, height=self.height)
+        img = np.expand_dims(np.asarray(processed_img), axis=0)
 
         # Evaluate the network for the given image
         predicted_depth = self.session.run(self.net.get_output(),
                                            feed_dict={self.input_node: img})
 
-        return predicted_depth[0, :, :, 0], input_image
+        return predicted_depth[0, :, :, 0], resized_img
 
 
 def main():
-    # Predict the images
+    """
+    Predict the images.
+    """
     predictor = Predictor(args.model_path)
-    predicted_depth, input_img = predictor.predict(args.image_path)
+    predicted_depth, input_img = predictor.predict_image(args.image_path)
 
     # Plot result
     fig = plt.figure()
@@ -137,6 +158,8 @@ if __name__ == '__main__':
     log_file = args.log_file
     utils.set_up_logging(log_file=log_file)
     logger = utils.get_logger(name=__name__)
+
+    logger.debug("current working directory: " + os.getcwd())
 
     # predict the depth maps
     main()
