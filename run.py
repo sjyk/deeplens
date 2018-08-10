@@ -11,12 +11,26 @@ from deeplens.io import FileScan
 from deeplens.patch.ssd import SSDPatchGenerator
 from deeplens.patch.xform import NullTransformer
 from utils import get_logger, set_up_logging
+from depth_prediction import predictor
+
+DEFAULT_PREDICT_DEPTH_MODEL_PATH = "resources/models/depth_prediction/NYU_" \
+                                   "ResNet-UpProj.npy"
+DEFAULT_PREDICT_DEPTH_IMAGES_PATH = "resources/demo/image.jpg"
 
 parser = argparse.ArgumentParser()
 parser.add_argument("-g", "--is_debug", default=False, type=bool,
                     help="is it the debug mode execution")
 parser.add_argument("-l", "--log_file", default="deeplens.log",
                     help="The name of the log file.")
+parser.add_argument("-d", "--show_depth_prediction", default=True, type=bool,
+                    help="Show the depth prediction for an input image.")
+parser.add_argument('-m', '--model_path',
+                    default=DEFAULT_PREDICT_DEPTH_MODEL_PATH,
+                    help='Converted parameters for the model')
+parser.add_argument('-i', '--images_path',
+                    default=DEFAULT_PREDICT_DEPTH_IMAGES_PATH,
+                    help='Image path or directory of images to predict '
+                         'their depth maps')
 
 
 def run():
@@ -40,8 +54,13 @@ def run():
     u = UnclusteredPatchFile("test", f, p, h, datastore_folder + "/data.store")
     u.build()  # can comment out after the datastore is built
 
-    # select operator to run basic predicates over the data, visualize all of
-    # the patches that have people in them
+    if show_depth_prediction:
+        logger.info("Show depth prediction: ")
+        predictor.main(model_path=args.model_path, images_path=args.images_path)
+
+    logger.info(
+        "Select operator to run basic predicates over the data, visualize all "
+        "of the patches that have people in them.")
     s = Select(u, lambda patch: patch.metadata['tag'] == 'person')
     for patch in s.read():
         logger.debug("patch metadata: {}".format(patch.metadata['tag']))
@@ -50,10 +69,13 @@ def run():
 
 
 if __name__ == "__main__":
+    # Parse arguments
     args = parser.parse_args(sys.argv[1:])
     is_debug = args.is_debug
     log_file = args.log_file
-    set_up_logging(log_file=log_file)
+    show_depth_prediction = args.show_depth_prediction
+
+    set_up_logging(log_file=log_file, is_debug=is_debug)
     logger = get_logger(name=__name__)
 
     run()

@@ -8,9 +8,13 @@ log_format = '%(asctime)s - %(name)s - %(levelname)s - ' \
 author: Adam Dziedzic ady@uchicago.edu
 """
 
-def set_up_logging(log_file):
+
+def set_up_logging(log_file, is_debug=False):
     handlers = [get_console_handler(), get_log_file_handler(log_file)]
-    logging.basicConfig(level=logging.INFO, format=log_format,
+    level = logging.INFO
+    if is_debug:
+        level = logging.DEBUG
+    logging.basicConfig(level=level, format=log_format,
                         handlers=handlers)
     logging.info("started logging to: " + log_file)
 

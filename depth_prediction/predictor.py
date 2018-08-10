@@ -8,10 +8,18 @@ from PIL import Image
 from urllib.request import urlretrieve
 import depth_prediction.models as models
 import utils
+import glob
+import logging
 
 logger = utils.get_logger(name=__name__)
 
-DEFAULT_MODEL_PATH = "NYU_ResNet-UpProj.npy"
+DEFAULT_MODEL_PATH = "../resources/models/depth_prediction/NYU_" \
+                     "ResNet-UpProj.npy"
+DEFAULT_IMAGES_PATH = "../resources/demo/image.jpg"
+DEFAULT_BATCH_SIZE = 16
+DEFAULT_LOG_FILE = "deeplens_depth_maps.log"
+
+IS_DEBUG = False
 
 """
 author: Adam Dziedzic ady@uchicago.edu
@@ -34,20 +42,28 @@ def show_figure(img):
     plt.show()
 
 
-def process_image(image_path, width, height):
+def process_images(images_path, width, height):
     """
     Process the image (e.g. resize).
 
-    :param image_path: the path to the image
+    :param images_path: the path to the directory with images
     :param width: the width of the image expected by the model
     :param height: the height of the image expected by the model
     :return: the processed and resized images (the resized image can be used to
     plot is as an original input to the model)
     """
-    img = Image.open(image_path)
-    resized_img = img.resize([width, height], Image.ANTIALIAS)
-    processed_img = np.array(resized_img).astype('float32')
-    return processed_img, resized_img
+    processed_imgs = []
+    resized_imgs = []
+    for image_path in images_path:
+        img = Image.open(image_path)
+        resized_img = img.resize([width, height], Image.ANTIALIAS)
+        resized_imgs.append(resized_img)
+        processed_img = np.array(resized_img).astype('float32')
+        processed_imgs.append(processed_img)
+    if logger.level == logging.DEBUG:
+        for image in resized_imgs:
+            show_figure(image)
+    return processed_imgs, resized_imgs
 
 
 class Predictor(object):
@@ -83,15 +99,23 @@ class Predictor(object):
         self.session.close()
 
     def _load_model_weights(self):
-        # Load the converted parameters
+        """
+        Load the pre-trained model parameters (weights).
+        """
         logger.info('Loading pre-trained model weights')
 
         if self.model_path.endswith(".npy"):
-            # load the pre-trained model from npy file
+            logger.debug("load the pre-trained model from npy file")
             if os.path.isfile(self.model_path) is False:
+                # extract model folder by removing model file name from the end
+                # of the path
+                model_folder = self.model_path[:self.model_path.rfind("/")]
+                if not os.path.exists(model_folder):
+                    os.makedirs(model_folder)
                 model_url = "https://goo.gl/dt2geQ"
-                logger.info("Downloading the model weights ... (the file is "
-                            "about 243 MB big)")
+                logger.info(
+                    "Downloading the model weights to " + model_folder +
+                    "... (the file is about 243 MB big)")
                 self.model_path = urlretrieve(model_url, self.model_path)
                 logger.info("Model downloaded successfully")
             self.net.load(self.model_path, self.session)
@@ -103,63 +127,111 @@ class Predictor(object):
             raise ValueError("Not known saved model weights' extension: "
                              "Expected: .npy or .ckpt, but given file: " +
                              self.model_path)
+        logger.debug("model loaded")
 
-    def predict_image(self, image_path):
+    def predict_depth(self, images_path, batch_size=DEFAULT_BATCH_SIZE):
         """
-        For the provided image_path, returns map of the predicted depths.
+        For each image return its depth map.
 
-        :param image_path: the path to the input image
-        :return: map of the predicted depths and the re-sized input image
+        For the provided paths to images (it can be a single image path) returns
+        maps of the predicted depths.
+
+        :param images_path: path to the directory with images (it can be also
+        a single path to an image)
+        :param batch_size: batch size for the image inference
+        :return: map of the predicted depths and the re-sized input images
         """
-        processed_img, resized_img = process_image(
-            image_path=image_path, width=self.width, height=self.height)
-        img = np.expand_dims(np.asarray(processed_img), axis=0)
+        logger.debug("predict depth")
+        if os.path.isfile(images_path):
+            images_path = [images_path]
+        else:
+            # extract the whole content from the directory
+            images_path = glob.glob(images_path + "/*")
+            # retain only files
+            images_path = [image_path for image_path in images_path if
+                           os.path.isfile(image_path)]
 
-        # Evaluate the network for the given image
-        predicted_depth = self.session.run(self.net.get_output(),
-                                           feed_dict={self.input_node: img})
+        processed_imgs, resized_imgs = process_images(
+            images_path=images_path, width=self.width, height=self.height)
+        processed_imgs = np.array(processed_imgs)
 
-        return predicted_depth[0, :, :, 0], resized_img
+        # adjust the batch size
+        self.net.batch_size = min(len(images_path), batch_size)
+
+        # Evaluate the network for the given images
+        predicted_depths = self.session.run(
+            self.net.get_output(), feed_dict={self.input_node: processed_imgs})
+
+        return predicted_depths[..., 0], resized_imgs
 
 
-def main():
+def main(model_path=DEFAULT_MODEL_PATH, images_path=DEFAULT_IMAGES_PATH):
     """
-    Predict the images.
+    Main and self-contained method to predict the images.
+
+    :param model_path: the path to the pre-trained model parameters
+    :param images_path: the path to the directory with images or a single image
+    path
     """
-    predictor = Predictor(args.model_path)
-    predicted_depth, input_img = predictor.predict_image(args.image_path)
+    predictor = Predictor(model_path)
+
+    predicted_depths, resized_imgs = predictor.predict_depth(
+        images_path=images_path)
 
     # Plot result
     fig = plt.figure()
+    columns = 2
+    rows = len(resized_imgs)
+    logger.debug("number of processed images:" + str(rows))
+    for counter in range(rows):
+        first_index = 2 * counter + 1
+        ax1 = fig.add_subplot(rows, columns, first_index)
+        input_img = plt.imshow(resized_imgs[counter], interpolation='nearest')
+        fig.colorbar(input_img)
+        ax1.title.set_text("resized input image " + str(counter))
 
-    fig.add_subplot(1, 2, 1)
-    input_img = plt.imshow(input_img, interpolation='nearest')
-    fig.colorbar(input_img)
+        second_index = 2 * counter + 2
+        ax2 = fig.add_subplot(rows, columns, second_index)
+        prediction_img = plt.imshow(predicted_depths[counter],
+                                    interpolation='nearest')
+        fig.colorbar(prediction_img)
+        ax2.title.set_text("depth map " + str(counter))
 
-    fig.add_subplot(1, 2, 2)
-    prediction_img = plt.imshow(predicted_depth,
-                                interpolation='nearest')
-    fig.colorbar(prediction_img)
-
-    plt.show()
+    fig.tight_layout()
+    img_folder = images_path[:images_path.rfind("/")]
+    depth_folder = img_folder + "/image_depths/"
+    if not os.path.exists(depth_folder):
+        os.makedirs(depth_folder)
+    fig.savefig(depth_folder + "/image_depths.png")
+    plt.show(block=True)
+    plt.close(fig)
 
 
 if __name__ == '__main__':
     # Parse arguments
     parser = argparse.ArgumentParser()
-    parser.add_argument('-m', '--model_path',
-                        help='Converted parameters for the model',
-                        default=DEFAULT_MODEL_PATH)
-    parser.add_argument('-i', '--image_path', help='Image path or directory of '
-                                                   'images to predict')
-    parser.add_argument("-l", "--log_file", default="deeplens.log",
+    parser.add_argument('-m', '--model_path', default=DEFAULT_MODEL_PATH,
+                        help='Converted parameters for the model')
+    parser.add_argument('-i', '--image_path', default=DEFAULT_IMAGES_PATH,
+                        help='Image path or directory of images to predict '
+                             'their depth maps')
+    parser.add_argument("-l", "--log_file", default=DEFAULT_LOG_FILE,
                         help="The name of the log file.")
-    args = parser.parse_args(sys.argv[1:])
+    parser.add_argument("-b", "--batch_size", default=DEFAULT_BATCH_SIZE,
+                        type=int, help="the batch size for inference")
+    parser.add_argument("-g", "--is_debug", default=IS_DEBUG, type=bool,
+                        help="is it the debug mode execution")
+
+    args = parser.parse_args(args=sys.argv[1:])
     log_file = args.log_file
-    utils.set_up_logging(log_file=log_file)
+    IS_DEBUG = args.is_debug
+
+    utils.set_up_logging(log_file=log_file, is_debug=args.is_debug)
     logger = utils.get_logger(name=__name__)
+    if IS_DEBUG:
+        logger.setLevel(logging.DEBUG)
 
     logger.debug("current working directory: " + os.getcwd())
 
     # predict the depth maps
-    main()
+    main(model_path=args.model_path, images_path=args.image_path)

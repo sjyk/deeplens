@@ -107,4 +107,7 @@ venv.bak/
 .idea/
 
 # depth prediction model weights
-depth_prediction/NYU_ResNet-UpProj.npy
+resources/datastore/
+resources/models/depth_prediction/
+resource/models/depth_prediction/NYU_ResNet-UpProj.npy
+resources/demo/image_depths/
