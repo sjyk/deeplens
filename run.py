@@ -12,7 +12,7 @@ from deeplens.patch.ssd import SSDPatchGenerator
 from deeplens.patch.xform import NullTransformer
 from utils import get_logger, set_up_logging
 from depth_prediction import predictor
-from deeplens.dbms.expression import UDFExpression
+from deeplens.dbms.expressions import UDFExpression
 
 DEFAULT_PREDICT_DEPTH_MODEL_PATH = "resources/models/depth_prediction/NYU_" \
                                    "ResNet-UpProj.npy"

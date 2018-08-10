@@ -74,7 +74,7 @@ class VideoScan(object):
                 break
 
             frame = cv2.resize(frame, (int(h*self.resize), int(*self.resize)), interpolation=cv2.INTER_CUBIC)
-            image = ImageRef(self.file, count, {'time': float(count)/self.fps})
+            image = ImageRef(self.file, count, {'time': count})
             count+=1
 
             if count % self.sampling == 0:
