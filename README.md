@@ -41,5 +41,5 @@ PYTHONPATH=../ python predictor.py --image_path=../resources/demo/image.jpg
 PYTHONPATH=../ python predictor.py --image_path=../resources/demo/
 ```
 
-Example of a resized input image and the output depth map:
+Example of a resized input image and the output depth map (the input image and the depth map were scaled equally for better comparison):
 ![Predcited depth map](resources/docs/depth_prediction.png)
