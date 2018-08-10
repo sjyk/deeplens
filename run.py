@@ -12,6 +12,7 @@ from deeplens.patch.ssd import SSDPatchGenerator
 from deeplens.patch.xform import NullTransformer
 from utils import get_logger, set_up_logging
 from depth_prediction import predictor
+from deeplens.dbms.expression import UDFExpression
 
 DEFAULT_PREDICT_DEPTH_MODEL_PATH = "resources/models/depth_prediction/NYU_" \
                                    "ResNet-UpProj.npy"
@@ -61,7 +62,7 @@ def run():
     logger.info(
         "Select operator to run basic predicates over the data, visualize all "
         "of the patches that have people in them.")
-    s = Select(u, lambda patch: patch.metadata['tag'] == 'person')
+    s = Select(u, UDFExpression(lambda patch: patch.metadata['tag'] == 'person'))
     for patch in s.read():
         logger.debug("patch metadata: {}".format(patch.metadata['tag']))
         cv2.imshow('image', patch.patch)

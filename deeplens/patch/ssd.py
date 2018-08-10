@@ -12,7 +12,7 @@ import tensorflow as tf
 
 class SSDPatchGenerator(PatchGenerator):
 
-    def __init__(self, model_file, label_file, num_classes, confidence=0.75):
+    def __init__(self, model_file, label_file, num_classes, confidence=0.50):
         self.model_file = model_file
         self.label_file = label_file
         self.num_classes = num_classes

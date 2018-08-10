@@ -12,5 +12,5 @@ class Select(object):
 
     def read(self, args={}):
         for patch in self.src.read(args={'predicate': self.predicate}):
-            if self.predicate(patch):
+            if self.predicate.predicate(patch):
                 yield patch
