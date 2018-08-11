@@ -44,7 +44,7 @@ class FileScan(object):
     # returns an iterator over numpy arrays
     def scan(self, flags=cv2.IMREAD_COLOR):
         for filename in self.filelist:
-            image = ImageRef(self.directory, filename)
+            image = ImageRef(self.directory, filename, {'time': 1})
             yield (image, image.fetch())
 
 
@@ -62,7 +62,7 @@ class VideoScan(object):
     def scan(self, flags=cv2.IMREAD_COLOR):
         cap = cv2.VideoCapture(self.file)
         
-        count = 0
+        count = 1
 
         while(cap.isOpened()):
             ret, frame = cap.read()
@@ -118,6 +118,7 @@ class Patch(object):
         self.patch = patch
         self.metadata = metadata
         self.metadata.update(imgref.metadata)
+        self.metadata['filename'] = imgref.filename
 
     # resizes a patch to a given size
     def resizeTo(self, tw, th):
