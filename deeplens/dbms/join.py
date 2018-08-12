@@ -4,6 +4,8 @@ from deeplens.dbms.expressions import EqualityExpression
 
 from sklearn.neighbors import BallTree
 
+import numpy as np
+
 logger = get_logger(__name__)
 
 
@@ -55,12 +57,12 @@ class MemorySpatialJoin(object):
         X = []
 
         for patch in self.right.read():
-            X.append(patch.patch)
+            X.append(np.ndarray.flatten(patch.patch))
 
         Y = np.array(X)
-        tree = BallTree(Y, leaf_size)
+        tree = BallTree(Y, self.leaf_size)
 
         for patch in self.left.read():
-            for ind in tree.query_radius(patch.patch, predicate.thresh):
-                yield Y[i]
+            for ind in tree.query_radius(np.ndarray.flatten(patch.patch).reshape((1,-1)), self.predicate.thresh):
+                yield Y[ind]
             

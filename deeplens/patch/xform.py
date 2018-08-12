@@ -1,5 +1,5 @@
 from skimage.feature import hog
-
+import cv2
 from deeplens.io import Patch
 
 """
@@ -43,3 +43,16 @@ class HoGTransformer(Transformer):
         return TransformedPatch(patch.imgref, patch.x, patch.y, patch.w,
                                 patch.h, hogfeatures, patch.metadata, True,
                                 True)
+
+class ColorHistTransformer(Transformer):
+
+    def __init__(self, bins=8):
+        self.bins = bins
+
+    def transform(self, patch):
+        hist = cv2.calcHist([patch.patch], [0, 1, 2], None, [self.bins, self.bins, self.bins], [0, 256, 0, 256, 0, 256])
+        return TransformedPatch(patch.imgref, patch.x, patch.y, patch.w,
+                                patch.h, hist, patch.metadata, True,
+                                True)
+
+        
