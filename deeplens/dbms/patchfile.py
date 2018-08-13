@@ -1,6 +1,12 @@
 import pickle
-from bsddb3 import db 
+
+from bsddb3 import db
+
+import logging
 from deeplens.dbms.expressions import *
+
+logger = logging.getLogger(name=__name__)
+
 
 class UnclusteredPatchFile(object):
 
@@ -12,17 +18,16 @@ class UnclusteredPatchFile(object):
         self.storage_path = storage_path
 
     def build(self):
-
         bdb = db.DB()
         bdb.open(self.name, None, db.DB_RECNO, db.DB_CREATE)
 
         count = 1
         for im in self.scanner.scan():
-            for patch in self.patcher.generatePatches(im[0],im[1]):
+            for patch in self.patcher.generatePatches(im[0], im[1]):
                 tpatch = self.transformer.transform(patch)
-                bdb.put(count,pickle.dumps(tpatch))
+                bdb.put(count, pickle.dumps(tpatch))
                 count += 1
-
+        logger.debug("count: {}".format(count))
         bdb.close()
 
     def read(self, args={}):
@@ -35,7 +40,7 @@ class UnclusteredPatchFile(object):
         while rec:
             yield pickle.loads(rec[1])
             rec = cursor.next()
-        
+
         bdb.close()
 
 
@@ -54,21 +59,21 @@ class HashIndex(object):
         keyct = {}
 
         for tpatch in self.src.read():
-            
-            #print(tpatch)
+
+            # print(tpatch)
 
             key = tpatch.metadata[self.attr]
 
             if key not in keyct:
                 keyct[key] = 0
 
-            bdb.put(str.encode(key + str(keyct[key])),pickle.dumps(tpatch))
+            bdb.put(str.encode(key + str(keyct[key])), pickle.dumps(tpatch))
             keyct[key] += 1
-
 
     def read(self, args={}):
 
-        if not isinstance(args['predicate'], EqualityExpression) or args['predicate'].attr != self.attr:
+        if not isinstance(args['predicate'], EqualityExpression) or args[
+            'predicate'].attr != self.attr:
             for i in self.readExhaustive():
                 yield i
 
@@ -80,14 +85,13 @@ class HashIndex(object):
             key = str.encode(args['predicate'].value + str(count))
             rec = bdb.get(key)
 
-            if rec == None:
+            if rec is None:
                 break
 
             yield pickle.loads(rec)
             count += 1
 
         bdb.close()
-
 
     def readExhaustive(self, args={}):
         bdb = db.DB()
@@ -101,6 +105,7 @@ class HashIndex(object):
             rec = cursor.next()
 
         bdb.close()
+
 
 class BTreeIndex(object):
 
@@ -117,21 +122,21 @@ class BTreeIndex(object):
         keyct = {}
 
         for tpatch in self.src.read():
-            
-            #print(tpatch)
+
+            # print(tpatch)
 
             key = tpatch.metadata[self.attr]
 
             if key not in keyct:
                 keyct[key] = 0
 
-            bdb.put(str.encode(key + str(keyct[key])),pickle.dumps(tpatch))
+            bdb.put(str.encode(key + str(keyct[key])), pickle.dumps(tpatch))
             keyct[key] += 1
-
 
     def read(self, args={}):
 
-        if not isinstance(args['predicate'], EqualityExpression) or args['predicate'].attr != self.attr:
+        if not isinstance(args['predicate'], EqualityExpression) or args[
+            'predicate'].attr != self.attr:
             for i in self.readExhaustive():
                 yield i
 
@@ -151,7 +156,6 @@ class BTreeIndex(object):
 
         bdb.close()
 
-
     def readExhaustive(self, args={}):
         bdb = db.DB()
         bdb.open(self.name, None, db.DB_RECNO, db.DB_DIRTY_READ)
@@ -164,6 +168,7 @@ class BTreeIndex(object):
             rec = cursor.next()
 
         bdb.close()
+
 
 class FrameIndex(object):
 
@@ -178,22 +183,21 @@ class FrameIndex(object):
         bdb.open(self.name, None, db.DB_RECNO, db.DB_CREATE)
 
         for tpatch in self.src.read():
-
             key = tpatch.metadata[self.attr]
 
             bdb.put(key, pickle.dumps(tpatch))
 
-
     def read(self, args={}):
 
-        if not isinstance(args['predicate'], RangeExpression) or args['predicate'].attr != self.attr:
+        if not isinstance(args['predicate'], RangeExpression) or args[
+            'predicate'].attr != self.attr:
             for i in self.readExhaustive():
                 yield i
 
         bdb = db.DB()
         bdb.open(self.name, None, db.DB_RECNO, db.DB_DIRTY_READ)
 
-        count = max(args['predicate'].start,1)
+        count = max(args['predicate'].start, 1)
         while count < args['predicate'].end:
             rec = bdb.get(count)
 
@@ -204,7 +208,6 @@ class FrameIndex(object):
             count += 1
 
         bdb.close()
-
 
     def readExhaustive(self, args={}):
         bdb = db.DB()

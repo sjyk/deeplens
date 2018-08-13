@@ -1,3 +1,5 @@
 ###### Requirements without Version Specifiers ######
 opencv-python
 scikit-image
+# on windows: https://stackoverflow.com/questions/33714698/installing-bsddb3-6-1-1-in-windows-filenotfounderror-db-include-db-h
+bsddb3
