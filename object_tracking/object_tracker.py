@@ -59,7 +59,7 @@ def detect_image(img):
 videopath = os.path.join("videos", "desk.mp4")
 
 import cv2
-from sort import *
+from .sort import Sort
 
 colors = [(255, 0, 0), (0, 255, 0), (0, 0, 255), (255, 0, 255), (128, 0, 0),
           (0, 128, 0), (0, 0, 128), (128, 0, 128), (128, 128, 0), (0, 128, 128)]

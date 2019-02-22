@@ -117,8 +117,10 @@ class YOLOLayer(nn.Module):
 
     def forward(self, x, targets=None):
         nA = self.num_anchors
+        # print("x size: ", x.size())
         nB = x.size(0)
         nG = x.size(2)
+        nH = x.size(3)
         stride = self.image_dim / nG
 
         # Tensors for cuda support
@@ -126,7 +128,7 @@ class YOLOLayer(nn.Module):
         LongTensor = torch.cuda.LongTensor if x.is_cuda else torch.LongTensor
         ByteTensor = torch.cuda.ByteTensor if x.is_cuda else torch.ByteTensor
 
-        prediction = x.view(nB, nA, self.bbox_attrs, nG, nG).permute(0, 1, 3, 4, 2).contiguous()
+        prediction = x.view(nB, nA, self.bbox_attrs, nG, nH).permute(0, 1, 3, 4, 2).contiguous()
 
         # Get outputs
         x = torch.sigmoid(prediction[..., 0])  # Center x
@@ -137,7 +139,7 @@ class YOLOLayer(nn.Module):
         pred_cls = torch.sigmoid(prediction[..., 5:])  # Cls pred.
 
         # Calculate offsets for each grid
-        grid_x = torch.arange(nG).repeat(nG, 1).view([1, 1, nG, nG]).type(FloatTensor)
+        grid_x = torch.arange(nH).repeat(nH, 1).view([1, 1, nH, nH]).type(FloatTensor)
         grid_y = torch.arange(nG).repeat(nG, 1).t().view([1, 1, nG, nG]).type(FloatTensor)
         scaled_anchors = FloatTensor([(a_w / stride, a_h / stride) for a_w, a_h in self.anchors])
         anchor_w = scaled_anchors[:, 0:1].view((1, nA, 1, 1))
@@ -145,6 +147,7 @@ class YOLOLayer(nn.Module):
 
         # Add offset and scale with anchors
         pred_boxes = FloatTensor(prediction[..., :4].shape)
+        # print(x.data.shape, grid_x.shape)
         pred_boxes[..., 0] = x.data + grid_x
         pred_boxes[..., 1] = y.data + grid_y
         pred_boxes[..., 2] = torch.exp(w.data) * anchor_w
