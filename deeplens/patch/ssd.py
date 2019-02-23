@@ -1,12 +1,10 @@
 from deeplens.patch.core import PatchGenerator
 from deeplens.io import Patch
 
-from object_detection.utils import label_map_util
-from object_detection.utils import visualization_utils as vis_util
+from object_detection.tensorflow_detect.utils import label_map_util
 
 import numpy as np
 
-import tarfile
 import tensorflow as tf
 
 

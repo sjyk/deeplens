@@ -17,7 +17,7 @@ weights_path = 'config/yolov3.weights'
 class_path = 'config/coco.names'
 img_size = 416
 conf_thres = 0.8
-nms_thres = 0.4
+nms_thres = 0.5
 
 # load model and put into eval mode
 model = Darknet(config_path, img_size=img_size)
