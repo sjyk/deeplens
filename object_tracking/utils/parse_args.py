@@ -22,9 +22,10 @@ def parse_args():
                         # default = "../object_detection/darknet/data/"
                         )
     parser.add_argument("--detection_path",
-                        default="../../motchallenge/MOT16/train/MOT16-02/det_yolo/det.txt"
+                        # default="../../motchallenge/MOT16/train/MOT16-02/det_yolo/det.txt"
                         # default="../../motchallenge/MOT16/train/MOT16-02/det/det.txt"
                         # default="../object_detection/darknet/data/dog_detections.txt"
+                        default="../../motchallenge/MOT16/train/MOT16-02/det_yolo/det_images/"
                         )
     parser.add_argument("--output_path",
                         default="../../motchallenge/MOT16/train/MOT16-02/det_yolo/det.txt"
