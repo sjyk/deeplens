@@ -118,3 +118,7 @@ resources/demo/image_depths/
 # images and videos
 *.jpg
 *.mp4
+
+# ignore other .gitignore
+.gitignore
+
