@@ -47,7 +47,7 @@ class METADATA(Structure):
                 ("names", POINTER(c_char_p))]
 
 
-# lib = CDLL("/home/pjreddie/documents/darknet/libdarknet.so", RTLD_GLOBAL)
+# lib = CDLL("/home/pjreddie/documents/darknet_c/libdarknet.so", RTLD_GLOBAL)
 import os
 
 print("current working directory: ", os.getcwd())

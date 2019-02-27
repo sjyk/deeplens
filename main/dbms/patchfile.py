@@ -3,7 +3,7 @@ import pickle
 from bsddb3 import db
 
 import logging
-from deeplens.dbms.expressions import *
+from main.dbms.expressions import *
 
 logger = logging.getLogger(name=__name__)
 

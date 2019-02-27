@@ -1,9 +1,9 @@
 import torch
 import matplotlib.pyplot as plt
-from PIL import Image
 import cv2
 import numpy as np
 from object_tracking.sort import Sort
+from object_tracking.iou_tracker.tracker import IouTracker
 import os
 
 if torch.cuda.is_available():
@@ -17,7 +17,7 @@ from object_tracking.utils.mot_utils import get_mot_class_id
 
 
 def run_main(args):
-    predictor, classes = load_model_and_classes(args=args)
+    detector, classes, detection_params = load_model_and_classes(args=args)
 
     # videopath = '../data/video/overpass.mp4'
     # videopath = os.path.join("videos", "desk.mp4")
@@ -49,13 +49,20 @@ def run_main(args):
     else:
         raise Exception(f"Unknown input type: {args.input_type}")
 
-    mot_tracker = Sort()
+    if args.mot_tracker == "sort":
+        mot_tracker = Sort()
+    elif args.mot_tracker == "iou_tracker":
+        mot_tracker = IouTracker()
+    else:
+        raise Exception(f"Unknown type of the tracker: {args.mot_tracker}")
 
     frame_idx = 0
     visibility = 1
     filler = -1
+    out_name = "det_" + str(args.detection_model) + detection_params + ".txt"
+    full_output_path = os.path.join(args.output_path, out_name)
 
-    with open(args.output_path, "w") as out_csv:
+    with open(full_output_path, "w") as out_csv:
         while (True):
             frame_idx += 1
             # for ii in range(3):t
@@ -71,25 +78,18 @@ def run_main(args):
                 img_idx += 1
             else:
                 raise Exception(f"Unknown input type: {args.input_type}")
-            detections = predictor.predict_for_mot(frame)
-            pilimg = Image.fromarray(frame)
-            img = np.array(pilimg)
-            pad_x = max(img.shape[0] - img.shape[1], 0) * (
-                    args.img_size / max(img.shape))
-            pad_y = max(img.shape[1] - img.shape[0], 0) * (
-                    args.img_size / max(img.shape))
-            unpad_h = args.img_size - pad_y
-            unpad_w = args.img_size - pad_x
-            if detections is not None:
-                tracked_objects = mot_tracker.update(detections.cpu())
+            detections = detector.detect(frame)
 
-                unique_labels = detections[:, -1].cpu().unique()
+            if detections is not None:
+                tracked_objects = mot_tracker.update(detections)
+
+                # unique_labels = detections[:, -1].cpu().unique()
                 # n_cls_preds = len(unique_labels)
                 for x1, y1, x2, y2, obj_id, class_id, score in tracked_objects:
-                    box_h = int(((y2 - y1) / unpad_h) * img.shape[0])
-                    box_w = int(((x2 - x1) / unpad_w) * img.shape[1])
-                    y1 = int(((y1 - pad_y // 2) / unpad_h) * img.shape[0])
-                    x1 = int(((x1 - pad_x // 2) / unpad_w) * img.shape[1])
+                    box_w = int(x2 - x1)
+                    box_h = int(y2 - y1)
+                    x1 = int(x1)
+                    y1 = int(y1)
 
                     color = colors[int(obj_id) % len(colors)]
                     color = [i * 255 for i in color]

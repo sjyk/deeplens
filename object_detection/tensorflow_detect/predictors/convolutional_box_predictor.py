@@ -38,7 +38,7 @@ class _NoopVariableScope(object):
 
 
 class ConvolutionalBoxPredictor(box_predictor.BoxPredictor):
-  """Convolutional Box Predictor.
+  """Convolutional Box DetectorDarknetPytorch.
 
   Optionally add an intermediate 1x1 convolutional layer after features and
   predict in parallel branches box_encodings and
@@ -237,7 +237,7 @@ def _arg_scope_func_key(op):
 # TODO(rathodv): Merge the implementation with ConvolutionalBoxPredictor above
 # since they are very similar.
 class WeightSharedConvolutionalBoxPredictor(box_predictor.BoxPredictor):
-  """Convolutional Box Predictor with weight sharing.
+  """Convolutional Box DetectorDarknetPytorch with weight sharing.
 
   Defines the box predictor as defined in
   https://arxiv.org/abs/1708.02002. This class differs from

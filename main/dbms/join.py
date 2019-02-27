@@ -1,6 +1,6 @@
-from utils import get_logger
+from main.utils import get_logger
 
-from deeplens.dbms.expressions import EqualityExpression
+from main.dbms.expressions import EqualityExpression
 
 from sklearn.neighbors import BallTree
 

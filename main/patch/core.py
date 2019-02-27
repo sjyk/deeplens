@@ -1,4 +1,4 @@
-from deeplens.io import Patch
+from main.io import Patch
 import cv2
 
 class PatchGenerator(object):

@@ -13,7 +13,7 @@
 # limitations under the License.
 # ==============================================================================
 
-"""Mask R-CNN Box Predictor."""
+"""Mask R-CNN Box DetectorDarknetPytorch."""
 import tensorflow as tf
 
 from object_detection.tensorflow_detect.core import box_predictor
@@ -27,7 +27,7 @@ MASK_PREDICTIONS = box_predictor.MASK_PREDICTIONS
 
 
 class MaskRCNNBoxPredictor(box_predictor.BoxPredictor):
-  """Mask R-CNN Box Predictor.
+  """Mask R-CNN Box DetectorDarknetPytorch.
 
   See Mask R-CNN: He, K., Gkioxari, G., Dollar, P., & Girshick, R. (2017).
   Mask R-CNN. arXiv preprint arXiv:1703.06870.

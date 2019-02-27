@@ -1,4 +1,4 @@
-from utils import get_logger
+from main.utils import get_logger
 
 logger = get_logger(__name__)
 

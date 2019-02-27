@@ -114,6 +114,8 @@ resources/demo/image_depths/
 
 # weights
 *.weights
+*.pth
+*.pth.1
 
 # images and videos
 *.jpg

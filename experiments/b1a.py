@@ -10,12 +10,12 @@ currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentfram
 parentdir = os.path.dirname(currentdir)
 sys.path.insert(0,parentdir) 
 
-from deeplens.dbms.patchfile import UnclusteredPatchFile
-from deeplens.dbms.join import NestedLoopJoin
-from deeplens.io import FileScan
-from deeplens.patch.core import NullPatchGenerator
-from deeplens.patch.xform import ColorHistTransformer
-from deeplens.dbms.expressions import ImageMatchExpression
+from main.dbms.patchfile import UnclusteredPatchFile
+from main.dbms.join import NestedLoopJoin
+from main.io import FileScan
+from main.patch.core import NullPatchGenerator
+from main.patch.xform import ColorHistTransformer
+from main.dbms.expressions import ImageMatchExpression
 
 
 

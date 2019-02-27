@@ -7,7 +7,7 @@ from matplotlib import pyplot as plt
 from PIL import Image
 from urllib.request import urlretrieve
 import depth_prediction.models as models
-import utils
+from main import utils
 import glob
 import logging
 

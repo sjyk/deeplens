@@ -101,6 +101,6 @@ if __name__ == "__main__":
     args = parse_args()
     args.is_interactive="no"
     # args.detection_path = "../../motchallenge/MOT16/train/MOT16-02/det_yolo/det.txt"
-    # args.detection_path = "../../motchallenge/res/MOT16/iou-tracker/MOT16-02_yolo.txt"
+    # args.detection_path = "../../motchallenge/res/MOT16/iou_tracker/MOT16-02_yolo.txt"
     args.detection_path = "../../motchallenge/MOT16/train/MOT16-02/gt/gt.txt"
     run_main(args)

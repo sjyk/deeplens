@@ -6,7 +6,7 @@ import numpy as np
 import cv2
 import matplotlib.pyplot as plt
 
-from object_detection.darknet.python.darknet import detect, load_net, load_meta
+from object_detection.darknet_c.python.darknet import detect, load_net, load_meta
 from object_tracking.utils.parse_args import parse_args
 
 from object_tracking.utils.general_utils import convert_box_xy, convert_box
@@ -17,7 +17,7 @@ inv_mot_classes = {v: k for k, v in mot_classes.items()}
 
 file_dir = os.path.dirname(os.path.abspath(__file__))
 project_dir = os.path.join(file_dir, os.path.pardir, "object_detection",
-                           "darknet")
+                           "darknet_c")
 
 cmap = plt.get_cmap('tab20b')
 colors = [cmap(i)[:3] for i in np.linspace(0, 1, 20)]

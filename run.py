@@ -5,14 +5,14 @@ import sys
 
 import cv2
 
-from deeplens.dbms.patchfile import UnclusteredPatchFile
-from deeplens.dbms.select import Select
-from deeplens.io import FileScan
-from deeplens.patch.ssd import SSDPatchGenerator
-from deeplens.patch.xform import NullTransformer
-from utils import get_logger, set_up_logging
+from main.dbms.patchfile import UnclusteredPatchFile
+from main.dbms.select import Select
+from main.io import FileScan
+from main.patch.ssd import SSDPatchGenerator
+from main.patch.xform import NullTransformer
+from main.utils import get_logger, set_up_logging
 from depth_prediction import predictor
-from deeplens.dbms.expressions import UDFExpression
+from main.dbms.expressions import UDFExpression
 
 DEFAULT_PREDICT_DEPTH_MODEL_PATH = "resources/models/depth_prediction/NYU_" \
                                    "ResNet-UpProj.npy"
@@ -21,7 +21,7 @@ DEFAULT_PREDICT_DEPTH_IMAGES_PATH = "resources/demo/image.jpg"
 parser = argparse.ArgumentParser()
 parser.add_argument("-g", "--is_debug", default=False, type=bool,
                     help="is it the debug mode execution")
-parser.add_argument("-l", "--log_file", default="deeplens.log",
+parser.add_argument("-l", "--log_file", default="main.log",
                     help="The name of the log file.")
 parser.add_argument("-d", "--show_depth_prediction", default=True, type=bool,
                     help="Show the depth prediction for an input image.")

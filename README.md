@@ -43,3 +43,15 @@ PYTHONPATH=../ python predictor.py --image_path=../resources/demo/
 
 Example of a resized input image and the output depth map (the input image and the depth map were scaled equally for better comparison):
 ![Predcited depth map](resources/docs/depth_prediction.png)
+
+## Object detection
+
+Download the pre-trained model to the following folder:
+`deeplens/object_detection/darknet/cfg/`
+for YOLO v3 from:
+`wget https://pjreddie.com/media/files/yolov3.weights`
+
+Download the pre-trained model to the following folder:
+`deeplens/object_detection/pytorch_ssd/models`
+for pytorch_ssd from:
+`wget https://storage.googleapis.com/models-hao/vgg16-ssd-mp-0_7726.pth`

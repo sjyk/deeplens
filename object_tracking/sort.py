@@ -20,11 +20,10 @@ from __future__ import print_function
 from numba import jit
 import os.path
 import numpy as np
-##import matplotlib.pyplot as plt
-##import matplotlib.patches as patches
+import matplotlib.pyplot as plt
+import matplotlib.patches as patches
 from skimage import io
 from sklearn.utils.linear_assignment_ import linear_assignment
-import glob
 import time
 import argparse
 from filterpy.kalman import KalmanFilter
@@ -112,8 +111,8 @@ class KalmanBoxTracker(object):
         self.hits = 0
         self.hit_streak = 0
         self.age = 0
-        self.objclass = bbox[6]
-        self.score = bbox[4] * bbox[5]
+        self.score = bbox[4]
+        self.objclass = bbox[5]
 
     def update(self, bbox):
         """
@@ -159,11 +158,11 @@ def associate_detections_to_trackers(detections, trackers, iou_threshold=0.3):
 
     for d, det in enumerate(detections):
         for t, trk in enumerate(trackers):
-            iou_matrix[d, t] = iou(det.numpy(), trk)
+            iou_matrix[d, t] = iou(det, trk)
     matched_indices = linear_assignment(-iou_matrix)
 
     unmatched_detections = []
-    for d, det in enumerate(detections):
+    for d in range(len(detections)):
         if (d not in matched_indices[:, 0]):
             unmatched_detections.append(d)
     unmatched_trackers = []
@@ -197,11 +196,24 @@ class Sort(object):
         self.trackers = []
         self.frame_count = 0
 
+    def track_all_dets(self, dets):
+        """
+        Track all the detections at once (an off-line approach).
+
+        :param dets: all the detections for all frames
+        :return: all trackes for each frame
+        """
+        tracks = []
+        for det in dets:
+           # Remove the frame number from the 0th position in a detection det.
+           tracks.append(self.update(det[1:]))
+        return tracks
+
     def update(self, dets):
         """
         Params:
           dets - a numpy array of detections in the format:
-           [[x1,y1,x2,y2,score],[x1,y1,x2,y2,score],...]
+           [[x1,y1,x2,y2,score,label],[x1,y1,x2,y2,score,label],...]
 
         Requires: this method must be called once for each frame even with empty
         detections.

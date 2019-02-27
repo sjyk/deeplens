@@ -13,7 +13,7 @@
 # limitations under the License.
 # ==============================================================================
 
-"""RFCN Box Predictor."""
+"""RFCN Box DetectorDarknetPytorch."""
 import tensorflow as tf
 from object_detection.tensorflow_detect.core import box_predictor
 from object_detection.tensorflow_detect.utils import ops
@@ -27,7 +27,7 @@ MASK_PREDICTIONS = box_predictor.MASK_PREDICTIONS
 
 
 class RfcnBoxPredictor(box_predictor.BoxPredictor):
-  """RFCN Box Predictor.
+  """RFCN Box DetectorDarknetPytorch.
 
   Applies a position sensitive ROI pooling on position sensitive feature maps to
   predict classes and refined locations. See https://arxiv.org/abs/1605.06409

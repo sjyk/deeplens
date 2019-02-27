@@ -1,5 +1,4 @@
-from utils.models import *
-from utils import utils
+from main.utils import utils
 
 import time, datetime, random
 import torch
@@ -9,6 +8,7 @@ from torch.autograd import Variable
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 from PIL import Image
+import numpy as np
 
 config_path = 'config/yolov3.cfg'
 weights_path = 'config/yolov3.weights'

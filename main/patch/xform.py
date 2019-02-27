@@ -1,6 +1,6 @@
 from skimage.feature import hog
 import cv2
-from deeplens.io import Patch
+from main.io import Patch
 
 """
 Extends the patch class to handle

@@ -2,19 +2,19 @@ import logging
 import os
 import unittest
 
-from deeplens.dbms import patchfile
-from deeplens.dbms.patchfile import UnclusteredPatchFile
-from deeplens.io import FileScan
-from deeplens.patch.ssd import SSDPatchGenerator
-from deeplens.patch.xform import NullTransformer
-from utils import get_logger
-from utils import set_up_logging
+from main.dbms import patchfile
+from main.dbms.patchfile import UnclusteredPatchFile
+from main.io import FileScan
+from main.patch.ssd import SSDPatchGenerator
+from main.patch.xform import NullTransformer
+from main.utils import get_logger
+from main.utils import set_up_logging
 
 
 class TestUnclusteredPatchFile(unittest.TestCase):
 
     def setUp(self):
-        log_file = "../../deeplens.log"
+        log_file = "../../main.log"
         is_debug = True
         set_up_logging(log_file=log_file, is_debug=is_debug)
         self.logger = get_logger(name=__name__)

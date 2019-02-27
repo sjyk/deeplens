@@ -10,12 +10,12 @@ currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentfram
 parentdir = os.path.dirname(currentdir)
 sys.path.insert(0,parentdir) 
 
-from deeplens.dbms.patchfile import UnclusteredPatchFile, BTreeIndex
-from deeplens.dbms.select import Select
-from deeplens.io import VideoScan
-from deeplens.patch.ssd import SSDPatchGenerator
-from deeplens.patch.xform import NullTransformer
-from deeplens.dbms.expressions import EqualityExpression
+from main.dbms.patchfile import UnclusteredPatchFile, BTreeIndex
+from main.dbms.select import Select
+from main.io import VideoScan
+from main.patch.ssd import SSDPatchGenerator
+from main.patch.xform import NullTransformer
+from main.dbms.expressions import EqualityExpression
 
 RESULTS_FILE = 'results.csv'
 files_dir = "resources/b2/b2.mp4"

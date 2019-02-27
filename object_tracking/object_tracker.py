@@ -1,7 +1,5 @@
-from utils.models import *
 from object_tracking.utils import general_utils
-from object_tracking.utils.models import Darknet
-from object_tracking.sort import Sort
+from object_detection.darknet_pytorch.models import Darknet
 import time
 
 import os
