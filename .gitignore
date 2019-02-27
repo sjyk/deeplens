@@ -111,3 +111,10 @@ resources/datastore/
 resources/models/depth_prediction/
 resource/models/depth_prediction/NYU_ResNet-UpProj.npy
 resources/demo/image_depths/
+
+# weights
+*.weights
+
+# images and videos
+*.jpg
+*.mp4

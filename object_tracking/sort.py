@@ -113,6 +113,7 @@ class KalmanBoxTracker(object):
         self.hit_streak = 0
         self.age = 0
         self.objclass = bbox[6]
+        self.score = bbox[4] * bbox[5]
 
     def update(self, bbox):
         """
@@ -212,13 +213,14 @@ class Sort(object):
         detections provided.
         """
         self.frame_count += 1
+        out_count = 6
         # get predicted locations from existing trackers.
-        trks = np.zeros((len(self.trackers), 5), dtype=np.float32)
+        trks = np.zeros((len(self.trackers), out_count), dtype=np.float32)
         to_del = []
         ret = []
         for t, trk in enumerate(trks):
             pos = self.trackers[t].predict()[0]
-            trk[:] = [pos[0], pos[1], pos[2], pos[3], 0]
+            trk[:] = [pos[0], pos[1], pos[2], pos[3], 0, 0]
             if (np.any(np.isnan(pos))):
                 to_del.append(t)
         trks = np.ma.compress_rows(np.ma.masked_invalid(trks))
@@ -243,15 +245,16 @@ class Sort(object):
             if ((trk.time_since_update < 1) and (
                     trk.hit_streak >= self.min_hits or self.frame_count <= self.min_hits)):
                 ret.append(
-                    np.concatenate((d, [trk.id + 1], [trk.objclass])).reshape(1,
-                                                                              -1))  # +1 as MOT benchmark requires positive
+                    np.concatenate((d, [trk.id + 1], [trk.objclass],
+                                    [trk.score])).reshape(1,
+                                                          -1))  # +1 as MOT benchmark requires positive
             i -= 1
             # remove dead tracklet
             if (trk.time_since_update > self.max_age):
                 self.trackers.pop(i)
         if (len(ret) > 0):
             return np.concatenate(ret)
-        return np.empty((0, 5))
+        return np.empty((0, out_count))
 
 
 def parse_args():
