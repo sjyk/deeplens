@@ -13,7 +13,7 @@
 # limitations under the License.
 # ==============================================================================
 
-"""Tests for object_detection.utils.test_utils."""
+"""Tests for object_detection.track_utils.test_utils."""
 
 import numpy as np
 import tensorflow as tf

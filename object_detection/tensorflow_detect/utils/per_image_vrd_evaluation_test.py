@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # ==============================================================================
-"""Tests for object_detection.utils.per_image_vrd_evaluation."""
+"""Tests for object_detection.track_utils.per_image_vrd_evaluation."""
 import numpy as np
 import tensorflow as tf
 

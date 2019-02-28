@@ -30,7 +30,7 @@ def parse_args():
 
     # Parameters for the object detection with the SSD algorithm that internally
     # uses the VGG network.
-    parser.add_argument('--vgg_ssd_top_k', type=int, default=20,
+    parser.add_argument('--vgg_ssd_top_k', type=int, default=2,
                         help="How many objects detected are returned from SSD "
                              "(starting from the one with the highest "
                              "score/confidence.")
@@ -42,12 +42,13 @@ def parse_args():
                         default="Darknet",
                         # default="vgg16-ssd",
                         help="The type of the model for the object detection.")
-    parser.add_argument('--mot_tracker',
-                        default="sort",
-                        # default="iou_tracker",
+    parser.add_argument("--tracker", type=str, default="mot")
+    parser.add_argument('--mot_tracker', type=str,
+                        # default="sort_tracker",
+                        default="iou_tracker",
                         help="The type of the mot (multi object) tracker for "
                              "the object detection.")
-    parser.add_argument("--input_type",
+    parser.add_argument("--input_type", type=str,
                         # default="video",
                         default="image"
                         )

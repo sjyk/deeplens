@@ -35,14 +35,16 @@ if torch.cuda.is_available():
 else:
     Tensor = torch.FloatTensor
 
-from object_tracking.utils.load_model import load_model_and_classes
-from object_tracking.utils.parse_args import parse_args
-from object_tracking.utils.mot_utils import get_mot_class_id
+from object_tracking.track_utils.load_model import load_model_and_classes
+from object_tracking.track_utils.parse_args import parse_args
+from utils.class_mapper import from_coco_id_to_mot_id, from_mot_id_to_mot_name, \
+    mapper
 
 
 def run_main(args):
     detector, classes, detection_params = load_model_and_classes(args=args)
 
+    print("classes: ", classes)
     # videopath = '../data/video/overpass.mp4'
     # videopath = os.path.join("videos", "desk.mp4")
     videoname = "desk"
@@ -73,7 +75,7 @@ def run_main(args):
     else:
         raise Exception(f"Unknown input type: {args.input_type}")
 
-    if args.mot_tracker == "sort":
+    if args.mot_tracker == "sort_tracker":
         mot_tracker = Sort()
     elif args.mot_tracker == "iou_tracker":
         mot_tracker = IouTracker()
@@ -85,6 +87,11 @@ def run_main(args):
     filler = -1
     out_name = "det_" + str(args.detection_model) + detection_params + ".txt"
     full_output_path = os.path.join(args.output_path, out_name)
+
+    # The mapper function from the classes recognized by the object detector to
+    # the classes recognized by the tracker.
+    from_det_class_id_to_track_class_id = mapper.get(
+        "from_" + args.from_class + "_id_to_" + args.tracker + "_id")
 
     with open(full_output_path, "w") as out_csv:
         while (True):
@@ -104,12 +111,20 @@ def run_main(args):
                 raise Exception(f"Unknown input type: {args.input_type}")
             detections = detector.detect(frame)
 
+            # Change class ids from the detector one to the tracker.
+            class_id_idx = 5  # the index of the class_id value in a detection tuple
+            for detection in detections:
+                class_det_id = int(detection[class_id_idx])
+                class_mot_id = from_det_class_id_to_track_class_id.get(
+                    class_det_id)
+                detection[class_id_idx] = class_mot_id
+
             if detections is not None:
-                tracked_objects = mot_tracker.update(detections)
+                tracked_objects = mot_tracker.track(detections)
 
                 # unique_labels = detections[:, -1].cpu().unique()
                 # n_cls_preds = len(unique_labels)
-                for x1, y1, x2, y2, obj_id, class_id, score in tracked_objects:
+                for obj_id, x1, y1, x2, y2, score, class_id in tracked_objects:
                     box_w = int(x2 - x1)
                     box_h = int(y2 - y1)
                     x1 = int(x1)
@@ -117,11 +132,13 @@ def run_main(args):
 
                     color = colors[int(obj_id) % len(colors)]
                     color = [i * 255 for i in color]
-                    cls = classes[int(class_id)]
 
                     # write the tracks to the output file
                     output = [frame_idx, int(obj_id), x1, y1, box_w, box_h,
-                              score, get_mot_class_id(cls), visibility, filler]
+                              score, class_id, visibility, filler]
+
+                    class_name = from_mot_id_to_mot_name.get(class_id)
+
                     output = ",".join(str(x) for x in output) + "\n"
                     print(output)
                     out_csv.write(output)
@@ -129,8 +146,9 @@ def run_main(args):
                     cv2.rectangle(frame, (x1, y1), (x1 + box_w, y1 + box_h),
                                   color, 4)
                     cv2.rectangle(frame, (x1, y1 - 35),
-                                  (x1 + len(cls) * 19 + 60, y1), color, -1)
-                    cv2.putText(frame, cls + "-" + str(int(obj_id)),
+                                  (x1 + len(class_name) * 19 + 60, y1), color,
+                                  -1)
+                    cv2.putText(frame, class_name + "-" + str(int(obj_id)),
                                 (x1, y1 - 10),
                                 cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 3)
             if args.is_interactive == "yes":

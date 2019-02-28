@@ -13,7 +13,7 @@
 # limitations under the License.
 # ==============================================================================
 
-"""Tests for object_detection.utils.np_box_mask_list_ops."""
+"""Tests for object_detection.track_utils.np_box_mask_list_ops."""
 
 import numpy as np
 import tensorflow as tf

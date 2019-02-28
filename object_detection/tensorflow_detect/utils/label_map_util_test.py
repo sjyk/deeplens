@@ -13,7 +13,7 @@
 # limitations under the License.
 # ==============================================================================
 
-"""Tests for object_detection.utils.label_map_util."""
+"""Tests for object_detection.track_utils.label_map_util."""
 
 import os
 import tensorflow as tf

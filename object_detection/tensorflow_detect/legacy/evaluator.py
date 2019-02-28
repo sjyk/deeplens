@@ -29,7 +29,7 @@ from object_detection.tensorflow_detect.utils import object_detection_evaluation
 
 # A dictionary of metric names to classes that implement the metric. The classes
 # in the dictionary must implement
-# utils.object_detection_evaluation.DetectionEvaluator interface.
+# track_utils.object_detection_evaluation.DetectionEvaluator interface.
 EVAL_METRICS_CLASS_DICT = {
     'pascal_voc_detection_metrics':
         object_detection_evaluation.PascalDetectionEvaluator,

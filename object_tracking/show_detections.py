@@ -1,7 +1,7 @@
 import os
 import csv
-from object_tracking.utils.parse_args import parse_args
-from object_tracking.utils.general_utils import convert_box, \
+from object_tracking.track_utils.parse_args import parse_args
+from object_tracking.track_utils.general_utils import convert_box, \
     convert_box_to_cv2_rectangle
 import cv2
 import matplotlib.pyplot as plt

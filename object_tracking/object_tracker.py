@@ -1,4 +1,4 @@
-from object_tracking.utils import general_utils
+from object_tracking.track_utils import general_utils
 from object_detection.darknet_pytorch.models import Darknet
 import time
 

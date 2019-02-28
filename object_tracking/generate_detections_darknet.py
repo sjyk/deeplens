@@ -7,9 +7,9 @@ import cv2
 import matplotlib.pyplot as plt
 
 from object_detection.darknet_c.python.darknet import detect, load_net, load_meta
-from object_tracking.utils.parse_args import parse_args
+from object_tracking.track_utils.parse_args import parse_args
 
-from object_tracking.utils.general_utils import convert_box_xy, convert_box
+from object_tracking.track_utils.general_utils import convert_box_xy, convert_box
 
 mot_classes = {"person": 1, "car": 3, "bicycle": 4, "motorbike": 5, "other": 8,
                "track": 3, "bus": 3}

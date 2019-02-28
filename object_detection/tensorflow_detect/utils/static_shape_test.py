@@ -13,7 +13,7 @@
 # limitations under the License.
 # ==============================================================================
 
-"""Tests for object_detection.utils.static_shape."""
+"""Tests for object_detection.track_utils.static_shape."""
 
 import tensorflow as tf
 

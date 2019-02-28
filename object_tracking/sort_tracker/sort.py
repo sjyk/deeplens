@@ -27,7 +27,7 @@ from sklearn.utils.linear_assignment_ import linear_assignment
 import time
 import argparse
 from filterpy.kalman import KalmanFilter
-
+from object_tracking.interface_tracker import Tracker
 
 @jit
 def iou(bb_test, bb_gt):
@@ -186,7 +186,7 @@ def associate_detections_to_trackers(detections, trackers, iou_threshold=0.3):
     return matches, np.array(unmatched_detections), np.array(unmatched_trackers)
 
 
-class Sort(object):
+class Sort(Tracker):
     def __init__(self, max_age=1, min_hits=3):
         """
         Sets key parameters for SORT
@@ -194,7 +194,7 @@ class Sort(object):
         self.max_age = max_age
         self.min_hits = min_hits
         self.trackers = []
-        self.frame_count = 0
+        self.frame_num = 0
 
     def track_all_dets(self, dets):
         """
@@ -205,8 +205,8 @@ class Sort(object):
         """
         tracks = []
         for det in dets:
-           # Remove the frame number from the 0th position in a detection det.
-           tracks.append(self.update(det[1:]))
+            # Remove the frame number from the 0th position in a detection det.
+            tracks.append(self.update(det[1:]))
         return tracks
 
     def update(self, dets):
@@ -218,13 +218,13 @@ class Sort(object):
         Requires: this method must be called once for each frame even with empty
         detections.
 
-        Returns are in the same form as the input but the last column is the
-        object ID.
+        Returns are in the form:
+        [[obj_id,x1,y1,x2,y2,score,label],[obj_id,x1,y1,x2,y2,score,label],...]
 
         NOTE: The number of objects returned may differ from the number of
         detections provided.
         """
-        self.frame_count += 1
+        self.frame_num += 1
         out_count = 6
         # get predicted locations from existing trackers.
         trks = np.zeros((len(self.trackers), out_count), dtype=np.float32)
@@ -255,11 +255,12 @@ class Sort(object):
         for trk in reversed(self.trackers):
             d = trk.get_state()[0]
             if ((trk.time_since_update < 1) and (
-                    trk.hit_streak >= self.min_hits or self.frame_count <= self.min_hits)):
+                    trk.hit_streak >= self.min_hits or self.frame_num <= self.min_hits)):
                 ret.append(
-                    np.concatenate((d, [trk.id + 1], [trk.objclass],
-                                    [trk.score])).reshape(1,
-                                                          -1))  # +1 as MOT benchmark requires positive
+                    np.concatenate(
+                        ([trk.id + 1], d, [trk.score], [trk.objclass],
+                         )).reshape(1,
+                                    -1))  # +1 as MOT benchmark requires positive
             i -= 1
             # remove dead tracklet
             if (trk.time_since_update > self.max_age):
@@ -267,6 +268,9 @@ class Sort(object):
         if (len(ret) > 0):
             return np.concatenate(ret)
         return np.empty((0, out_count))
+
+    def track(self, dets):
+        return self.update(dets)
 
 
 def parse_args():

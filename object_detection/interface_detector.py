@@ -31,6 +31,12 @@ class Detector(abc.ABC):
         """
         Detect object in the image.
         :return: detections, each in the following format:
-        (x1, y1, box_w, box_h, conf_level, class_pred)
+        (x1, y1, x2, y2, conf_level, class_pred), where (x1,y1) is the top-left
+        corner of the img and the (x2,y2) is the bottom left corner of the img.
+
+        [[x1, y1, x2, y2, score, class_id],
+        [x1, y1, x2, y2, score, class_id],...]
+
+        -
         """
         pass

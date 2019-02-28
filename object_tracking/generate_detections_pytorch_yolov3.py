@@ -7,8 +7,8 @@ if torch.cuda.is_available():
 else:
     Tensor = torch.FloatTensor
 
-from object_tracking.utils.load_model import load_model_and_classes
-from object_tracking.utils.parse_args import parse_args
+from object_tracking.track_utils.load_model import load_model_and_classes
+from object_tracking.track_utils.parse_args import parse_args
 
 
 def run_main(args):

@@ -8,7 +8,7 @@ from object_detection.pytorch_ssd.vision.ssd.vgg_ssd import create_vgg_ssd, \
 from object_detection.darknet_pytorch.detector_darknet_pytorch import DetectorDarknetPytorch
 import torch
 from object_detection.darknet_pytorch.models import Darknet
-from object_tracking.utils import general_utils
+from object_tracking.track_utils import general_utils
 
 
 def load_model_and_classes(args):
@@ -20,6 +20,7 @@ def load_model_and_classes(args):
         class_path = config + '/coco.names'
         classes = general_utils.load_classes(class_path)
         args.num_classes = len(classes)
+        args.from_class = "coco"
         model = Darknet(config_path)
         model.load_weights(weights_path)
         if torch.cuda.is_available():
@@ -33,6 +34,7 @@ def load_model_and_classes(args):
         model_path = '../object_detection/pytorch_ssd/models/vgg16-ssd-mp-0_7726.pth'
         classes = general_utils.load_classes(class_path)
         args.num_classes = len(classes)
+        args.from_class = "voc"
         net = create_vgg_ssd(args.num_classes, is_test=True)
         net.load(model_path)
         detector = create_vgg_ssd_predictor(
