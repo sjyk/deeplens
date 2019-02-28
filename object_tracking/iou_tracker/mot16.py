@@ -11,7 +11,7 @@ from time import time
 import argparse
 import os
 from object_tracking.iou_tracker.util import load_mot, save_to_csv
-from object_tracking.iou_tracker.tracker import track_iou
+from object_tracking.iou_tracker.iou import track_iou
 
 # version = ""
 version = "_yolo"

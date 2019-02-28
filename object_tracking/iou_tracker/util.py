@@ -89,7 +89,7 @@ def iou(bbox1, bbox2):
         bbox2 (numpy.array, list of floats): bounding box in format x1,y1,x2,y2.
 
     Returns:
-        int: intersection-over-onion of bbox1, bbox2
+        int: intersection-over-union of bbox1, bbox2
     """
 
     bbox1 = [float(x) for x in bbox1]
@@ -108,7 +108,8 @@ def iou(bbox1, bbox2):
     if overlap_x1 - overlap_x0 <= 0 or overlap_y1 - overlap_y0 <= 0:
         return 0
 
-    # if yes, calculate the ratio of the overlap to each ROI size and the unified size
+    # Calculate the ratio of the overlap to each ROI (Region Of Interest) size
+    # and the unified size.
     size_1 = (x1_1 - x0_1) * (y1_1 - y0_1)
     size_2 = (x1_2 - x0_2) * (y1_2 - y0_2)
     size_intersection = (overlap_x1 - overlap_x0) * (overlap_y1 - overlap_y0)
