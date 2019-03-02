@@ -10,9 +10,12 @@ def parse_args():
     parser = argparse.ArgumentParser(
         description="Object tracking.")
 
-    parser.add_argument('--is_interactive', default="yes",
+    parser.add_argument('--is_interactive', default="no",
                         help="Should we display the pictures or only do the "
                              "computation.")
+
+    parser.add_argument('--bench_case', default="MOT16-02",
+                        help="Which part of the benchmark should be executed.")
 
     # Parameters for the object detection with YOLO v3.
     parser.add_argument('--img_size', type=int, default=416,
@@ -44,17 +47,25 @@ def parse_args():
                         help="The type of the model for the object detection.")
     parser.add_argument("--tracker", type=str, default="mot")
     parser.add_argument('--mot_tracker', type=str,
-                        # default="sort_tracker",
-                        default="iou_tracker",
+                        default="sort_tracker",
+                        # default="iou_tracker",
                         help="The type of the mot (multi object) tracker for "
                              "the object detection.")
+
+    # params for the SORT tracker
+    parser.add_argument('--sort_max_age', type=int, default=1)
+    parser.add_argument('--sort_min_hits', type=int, default=3)
+
+
     parser.add_argument("--input_type", type=str,
                         # default="video",
                         default="image"
                         )
     parser.add_argument("--images_path",
-                        default="../benchmarks/motchallenge/MOT16/train/MOT16-02/img1"
+                        # default="../benchmarks/motchallenge/MOT16/train/MOT16-02/img1"
+                        # default="../benchmarks/motchallenge/MOT16/train/MOT16-02/img1_test"
                         # default = "../object_detection/darknet_c/data/"
+                        default="../benchmarks/motchallenge/MOT16/train/"
                         )
     parser.add_argument("--detection_path",
                         # default="../benchmarks/motchallenge/MOT16/train/MOT16-02/det_yolo/det.txt"
@@ -65,10 +76,12 @@ def parse_args():
     parser.add_argument("--output_path",
                         # default="../benchmarks/motchallenge/MOT16/train/MOT16-02/det_yolo/det.txt"
                         # default="../benchmarks/motchallenge/MOT16/train/MOT16-02/det_yolo_sort/det.txt"
-                        default="../benchmarks/motchallenge/MOT16/train/MOT16-02/det_ssd_sort/"
+                        # default="../benchmarks/motchallenge/MOT16/train/MOT16-02/det_ssd_sort/"
+                        default="../benchmarks/motchallenge/res/MOT16/sort_tracker_2/"
                         )
     parser.add_argument("--output_video",
-                        default="../benchmarks/motchallenge/MOT16/train/MOT16-02/video_det_yolo_sort/yolo_sort.mp4"
+                        # default="../benchmarks/motchallenge/MOT16/train/MOT16-02/video_det_yolo_sort/yolo_sort.mp4"
+                        default="../benchmarks/motchallenge/MOT16-video-tracks/"
                         )
 
     args = parser.parse_args()

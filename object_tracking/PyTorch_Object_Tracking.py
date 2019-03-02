@@ -28,6 +28,7 @@ import cv2
 import numpy as np
 from object_tracking.sort_tracker.sort import Sort
 from object_tracking.iou_tracker.iou import IouTracker
+from benchmarks.motchallenge.panda_analyze.count_people import get_statistics
 import os
 
 if torch.cuda.is_available():
@@ -37,21 +38,25 @@ else:
 
 from object_tracking.track_utils.load_model import load_model_and_classes
 from object_tracking.track_utils.parse_args import parse_args
-from utils.class_mapper import from_coco_id_to_mot_id, from_mot_id_to_mot_name, \
-    mapper
+from deeplens_utils.class_mapper import from_mot_id_to_mot_name, mapper
 
 
-def run_main(args):
+def string_params(params, delimiter=","):
+    return delimiter.join([str(param) for param in params])
+
+
+def run_main(args, index):
     detector, classes, detection_params = load_model_and_classes(args=args)
 
-    print("classes: ", classes)
+    # print("classes: ", classes)
     # videopath = '../data/video/overpass.mp4'
     # videopath = os.path.join("videos", "desk.mp4")
     videoname = "desk"
     videofoler = "videos"
-    videopath = videofoler + "/" + videoname + ".mp4"
+    video_ext = ".mp4"
+    videopath = videofoler + "/" + videoname + video_ext
     # videoout = videofoler + "/" + videoname + "-track2.mp4"
-    videoout = args.output_video
+    videoout = args.output_video + args.bench_case + video_ext
 
     # Define the codec and create VideoWriter object
     # fourcc = cv2.VideoWriter_fourcc(*'XVID')
@@ -69,24 +74,43 @@ def run_main(args):
               vid.get(cv2.CAP_PROP_FRAME_HEIGHT), vid.get(cv2.CAP_PROP_FPS),
               vid.get(cv2.CAP_PROP_FOURCC))
     elif args.input_type == "image":
-        image_files = sorted(os.listdir(args.images_path))
+        images_path = os.path.join(args.images_path, args.bench_case,
+                                   "img1_test")
+        image_files = sorted(os.listdir(images_path))
         last_img_idx = len(image_files)
-        img_idx = 0
+        img_idx = -1
     else:
         raise Exception(f"Unknown input type: {args.input_type}")
 
     if args.mot_tracker == "sort_tracker":
-        mot_tracker = Sort()
+        mot_tracker = Sort(min_hits=args.sort_min_hits,
+                           max_age=args.sort_max_age)
     elif args.mot_tracker == "iou_tracker":
         mot_tracker = IouTracker()
     else:
         raise Exception(f"Unknown type of the tracker: {args.mot_tracker}")
+    tracker_params = mot_tracker.get_params()
 
     frame_idx = 0
     visibility = 1
     filler = -1
-    out_name = "det_" + str(args.detection_model) + detection_params + ".txt"
-    full_output_path = os.path.join(args.output_path, out_name)
+    delimiter = " "
+
+    detection_params_str = string_params(detection_params, "_")
+    tracker_params_str = string_params(tracker_params, "_")
+
+    det_ext = ".txt"
+    if index == 0:
+        out_name = str(
+            args.detection_model) + "_" + str(detection_params_str) + "_" + str(
+            args.mot_tracker) + "_" + str(tracker_params_str)
+        # full_output_path = os.path.join(args.output_path, out_name)
+        args.output_path = os.path.join(args.output_path, out_name)
+
+        if not os.path.exists(args.output_path):
+            os.makedirs(args.output_path)
+
+    full_output_path = os.path.join(args.output_path, args.bench_case + det_ext)
 
     # The mapper function from the classes recognized by the object detector to
     # the classes recognized by the tracker.
@@ -101,12 +125,12 @@ def run_main(args):
                 ret, frame = vid.read()
                 frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
             elif args.input_type == "image":
+                img_idx += 1
                 if img_idx >= last_img_idx:
                     break
                 image_file = image_files[img_idx]
-                image_path = os.path.join(args.images_path, image_file)
+                image_path = os.path.join(images_path, image_file)
                 frame = cv2.imread(image_path, cv2.COLOR_BGR2RGB)
-                img_idx += 1
             else:
                 raise Exception(f"Unknown input type: {args.input_type}")
             detections = detector.detect(frame)
@@ -140,7 +164,7 @@ def run_main(args):
                     class_name = from_mot_id_to_mot_name.get(class_id)
 
                     output = ",".join(str(x) for x in output) + "\n"
-                    print(output)
+                    # print(output)
                     out_csv.write(output)
 
                     cv2.rectangle(frame, (x1, y1), (x1 + box_w, y1 + box_h),
@@ -169,7 +193,41 @@ def run_main(args):
     if args.is_interactive == "yes":
         cv2.destroyAllWindows()
 
+    stats = get_statistics(dataset_path=full_output_path)
+    # print(args.bench_case + delimiter + str(
+    #     args.detection_model) + delimiter + string_params(
+    #     detection_params, delimiter) + delimiter + str(
+    #     args.mot_tracker) + delimiter + string_params(
+    #     tracker_params,
+    #     delimiter) + delimiter + "stats" + delimiter + string_params(
+    #     stats, delimiter))
+
+    meta_file = os.path.join(args.output_path, "meta_sql_counters.txt")
+    with open(meta_file, "a") as out:
+        # print header
+        if index == 0:
+            out.write(
+                "detector: " + args.detection_model + " tracker: " + args.mot_tracker + "\n")
+            out.write("bench_case" + delimiter + string_params(
+                detection_params[0::2], delimiter) + delimiter + string_params(
+                tracker_params[0::2], delimiter) + delimiter + string_params(
+                stats[0::2], delimiter) + "\n")
+
+        # print data
+        out.write(args.bench_case + delimiter + string_params(
+            detection_params[1::2], delimiter) + delimiter + string_params(
+            tracker_params[1::2], delimiter) + delimiter + string_params(
+            stats[1::2], delimiter) + "\n")
+
+    return stats
+
 
 if __name__ == "__main__":
     args = parse_args()
-    run_main(args)
+    all_stats = []
+    # for bench_case in ["MOT16-02", "MOT16-04", "MOT16-05", "MOT16-09",
+    #                    "MOT16-10", "MOT16-11", "MOT16-13"]:
+    for index, bench_case in enumerate(["MOT16-02", "MOT16-04"]):
+        args.bench_case = bench_case
+        stats = run_main(args, index)
+        all_stats.append(stats)

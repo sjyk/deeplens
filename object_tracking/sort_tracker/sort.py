@@ -191,10 +191,14 @@ class Sort(Tracker):
         """
         Sets key parameters for SORT
         """
+        # Tracks are terminated if they are not detected for max_age frames.
         self.max_age = max_age
         self.min_hits = min_hits
         self.trackers = []
         self.frame_num = 0
+
+    def get_params(self):
+        return ["max_age", self.max_age, "min_hits", self.min_hits]
 
     def track_all_dets(self, dets):
         """

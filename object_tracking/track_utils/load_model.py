@@ -5,7 +5,8 @@ sys.path.append(os.path.abspath('../../'))
 from object_detection.pytorch_ssd.vision.ssd.vgg_ssd import create_vgg_ssd, \
     create_vgg_ssd_predictor
 
-from object_detection.darknet_pytorch.detector_darknet_pytorch import DetectorDarknetPytorch
+from object_detection.darknet_pytorch.detector_darknet_pytorch import \
+    DetectorDarknetPytorch
 import torch
 from object_detection.darknet_pytorch.models import Darknet
 from object_tracking.track_utils import general_utils
@@ -27,8 +28,8 @@ def load_model_and_classes(args):
             model.cuda()
         model.eval()
         detector = DetectorDarknetPytorch(args=args, model=model)
-        params = "_nms_thres_" + str(args.nms_thres) + "_conf_thres_" + str(
-            args.conf_thres)
+        params = ["nms_thres", str(args.nms_thres), "conf_thres",
+                  str(args.conf_thres)]
     elif args.detection_model == "vgg16-ssd":
         class_path = config + '/voc.names'
         model_path = '../object_detection/pytorch_ssd/models/vgg16-ssd-mp-0_7726.pth'
@@ -42,9 +43,9 @@ def load_model_and_classes(args):
             top_k=args.vgg_ssd_top_k,
             filter_threshold=args.vgg_ssd_filter_threshold,
             nms_method=args.vgg_ssd_nms_method)
-        params = "_top_k_" + str(
-            args.vgg_ssd_top_k) + "_filter_threshold_" + str(
-            args.vgg_ssd_filter_threshold) + "_candidate_size_" + str(
-            args.vgg_ssd_candidate_size) + "_nms_method_" + str(
-            args.vgg_ssd_nms_method)
+        params = ["top_k", str(
+            args.vgg_ssd_top_k), "filter_threshold", str(
+            args.vgg_ssd_filter_threshold), "candidate_size", str(
+            args.vgg_ssd_candidate_size), "nms_method", str(
+            args.vgg_ssd_nms_method)]
     return detector, classes, params

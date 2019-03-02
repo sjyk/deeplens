@@ -9,15 +9,15 @@
 
 from time import time
 from object_tracking.interface_tracker import Tracker
-from .util import load_mot, iou
-from utils.class_mapper import from_mot_name_to_mot_id, from_mot_id_to_mot_name
+from object_tracking.iou_tracker.util import load_mot, iou
+from deeplens_utils.class_mapper import from_mot_name_to_mot_id, from_mot_id_to_mot_name
 
 person_label = [from_mot_name_to_mot_id.get("Pedestrian")]
 all_mot_labels = from_mot_id_to_mot_name.keys()
 
 class IouTracker(Tracker):
     def __init__(self, sigma_l=0.3, sigma_h=0.5, sigma_iou=0.3, t_min=5,
-                 t_max=2):
+                 t_max=2, match_labels="no"):
         """
         Stateful IOU (Intersection over Union) tracker.
 
@@ -33,8 +33,14 @@ class IouTracker(Tracker):
         self.sigma_iou = sigma_iou
         self.t_min = t_min
         self.t_max = t_max
+        self.match_labels = False if match_labels == "no" else True
 
         self.reset()
+
+    def get_params(self):
+        return ["sigma_l", self.sigma_l, "sigma_h", self.sigma_h, "sigma_iou",
+                self.sigma_iou, "t_min", self.t_min, "t_max", self.t_max,
+                "match_labels", self.match_labels]
 
     def reset(self):
         """
@@ -100,8 +106,11 @@ class IouTracker(Tracker):
                 # Main change: take only the dets with the same label as the
                 # active track.
                 # dets_label = dets[dets[:, label_idx] == track['label']]
-                dets_label = [det for det in dets if
-                              det['label'] == track['label']]
+                if self.match_labels:
+                    dets_label = [det for det in dets if
+                                  det['label'] == track['label']]
+                else:
+                    dets_label = dets
 
                 last_track = track['bboxes'][-1]
                 best_match = max(dets_label,
@@ -112,7 +121,7 @@ class IouTracker(Tracker):
                     track['max_score'] = max(track['max_score'],
                                              best_match['score'])
                     # the track label should not change
-                    assert track['label'] == best_match['label']
+                    # assert track['label'] == best_match['label']
                     track['frames'].append(self.frame_num)
 
                     updated_tracks.append(track)

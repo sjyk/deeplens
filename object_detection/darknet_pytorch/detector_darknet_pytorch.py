@@ -53,7 +53,15 @@ class DetectorDarknetPytorch(Detector):
                                              self.args.conf_thres,
                                              self.args.nms_thres)
         detections = detections[0]
-        return self.revert_box_merge_conf(detections=detections, img=img)
+        # print("type of detections: ", type(detections))
+        # print("detections: ", detections)
+        if detections is not None:
+            return self.revert_box_merge_conf(detections=detections, img=img)
+        else:
+            # return an empty tensor
+            return torch.tensor([])
+
+
 
     def revert_box_merge_conf(self, detections, img):
         """
