@@ -74,8 +74,10 @@ def run_main(args, index):
               vid.get(cv2.CAP_PROP_FRAME_HEIGHT), vid.get(cv2.CAP_PROP_FPS),
               vid.get(cv2.CAP_PROP_FOURCC))
     elif args.input_type == "image":
+        img_folder = "img1"
+        # img_folder = "img1_test"  # for test
         images_path = os.path.join(args.images_path, args.bench_case,
-                                   "img1_test")
+                                   img_folder)
         image_files = sorted(os.listdir(images_path))
         last_img_idx = len(image_files)
         img_idx = -1
@@ -225,9 +227,12 @@ def run_main(args, index):
 if __name__ == "__main__":
     args = parse_args()
     all_stats = []
-    # for bench_case in ["MOT16-02", "MOT16-04", "MOT16-05", "MOT16-09",
-    #                    "MOT16-10", "MOT16-11", "MOT16-13"]:
-    for index, bench_case in enumerate(["MOT16-02", "MOT16-04"]):
-        args.bench_case = bench_case
-        stats = run_main(args, index)
-        all_stats.append(stats)
+    for nms_thres in [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]:
+        args.nms_thres = nms_thres
+        for index, bench_case in enumerate(
+                ["MOT16-02", "MOT16-04", "MOT16-05", "MOT16-09",
+                 "MOT16-10", "MOT16-11", "MOT16-13"]):
+            # for index, bench_case in enumerate(["MOT16-02", "MOT16-04"]):
+            args.bench_case = bench_case
+            stats = run_main(args, index)
+            all_stats.append(stats)

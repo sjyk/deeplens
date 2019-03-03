@@ -77,7 +77,7 @@ def parse_args():
                         # default="../benchmarks/motchallenge/MOT16/train/MOT16-02/det_yolo/det.txt"
                         # default="../benchmarks/motchallenge/MOT16/train/MOT16-02/det_yolo_sort/det.txt"
                         # default="../benchmarks/motchallenge/MOT16/train/MOT16-02/det_ssd_sort/"
-                        default="../benchmarks/motchallenge/res/MOT16/sort_tracker_2/"
+                        default="../benchmarks/motchallenge/res/MOT16/sort_tracker/"
                         )
     parser.add_argument("--output_video",
                         # default="../benchmarks/motchallenge/MOT16/train/MOT16-02/video_det_yolo_sort/yolo_sort.mp4"
