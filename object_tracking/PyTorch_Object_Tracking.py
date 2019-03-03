@@ -220,14 +220,14 @@ def run_main(args, index):
             detection_params[1::2], delimiter) + delimiter + string_params(
             tracker_params[1::2], delimiter) + delimiter + string_params(
             stats[1::2], delimiter) + "\n")
-
     return stats
 
 
 if __name__ == "__main__":
     args = parse_args()
     all_stats = []
-    for nms_thres in [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]:
+    # for nms_thres in [0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]:
+    for nms_thres in [0.7]:
         args.nms_thres = nms_thres
         for index, bench_case in enumerate(
                 ["MOT16-02", "MOT16-04", "MOT16-05", "MOT16-09",

@@ -40,7 +40,10 @@ def load_mot(detections):
         labels = raw[idx, 7]  # extract column 7 for the indexes (idx) from raw
         dets = []
         for bb, s, label in zip(bbox, scores, labels):
-            if label == 1:  # only consider pedestrians
+
+            # only consider pedestrians 1
+            # for the ground truth detections the label is -1
+            if label == 1 or label == -1:
                 dets.append({'bbox': (bb[0], bb[1], bb[2], bb[3]), 'score': s,
                              'label': int(label)})
         data.append(dets)

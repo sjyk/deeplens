@@ -11,13 +11,15 @@ from time import time
 import argparse
 from object_tracking.iou_tracker.util import load_mot, save_to_csv
 from object_tracking.iou_tracker.iou import track_iou
+import os
 
-# version = ""
-version = "_yolo"
+version = ""
+# version = "_yolo"
 
 
 def main(args):
     with open(args.seqmap) as fd:
+
         seqs = [line.rstrip('\n') for line in fd]
 
     for idx, seq in enumerate(seqs):
@@ -27,12 +29,14 @@ def main(args):
             det_path = args.benchmark_dir + "/" + seq + "/det" + version + "/det.txt"
             out_path = args.res_dir + "/" + seq + version + ".txt"
 
+            # print("current working dierctory: ", os.getcwd())
             detections = load_mot(det_path)
 
             start = time()
             tracks = track_iou(detections, args.sigma_l, args.sigma_h,
                                args.sigma_iou, args.t_min)
             end = time()
+
 
             num_frames = len(detections)
             print("finished " + seq + " at " + str(
@@ -49,7 +53,8 @@ if __name__ == '__main__':
                         default="../../benchmarks/motchallenge/seqmaps/c5-train.txt",
                         help="full path to the seqmap file to evaluate")
     parser.add_argument('-o', '--res_dir', type=str,
-                        default="../../benchmarks/motchallenge/res/MOT16/iou_tracker",
+                        # default="../../benchmarks/motchallenge/res/MOT16/iou_tracker/",
+                        default="../../benchmarks/motchallenge/res/MOT16/iou_tracker_from_gt_det/",
                         help="path to the results directory")
     parser.add_argument('-b', '--benchmark_dir', type=str,
                         default="../../benchmarks/motchallenge/MOT16/train",
