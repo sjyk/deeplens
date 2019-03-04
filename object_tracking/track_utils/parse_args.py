@@ -42,8 +42,9 @@ def parse_args():
     parser.add_argument('--vgg_ssd_nms_method', type=str, default="soft")
 
     parser.add_argument('--detection_model',
-                        default="Darknet",
+                        # default="Darknet",
                         # default="vgg16-ssd",
+                        default="MOT16_gt",  # MOT16 ground truth
                         help="The type of the model for the object detection.")
     parser.add_argument("--tracker", type=str, default="mot")
     parser.add_argument('--mot_tracker', type=str,
@@ -82,6 +83,9 @@ def parse_args():
     parser.add_argument("--output_video",
                         # default="../benchmarks/motchallenge/MOT16/train/MOT16-02/video_det_yolo_sort/yolo_sort.mp4"
                         default="../benchmarks/motchallenge/MOT16-video-tracks/"
+                        )
+    parser.add_argument("--mot16_gt_dets",
+                        default="../benchmarks/motchallenge/MOT16/train/"
                         )
 
     args = parser.parse_args()

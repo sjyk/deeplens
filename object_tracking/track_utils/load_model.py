@@ -10,6 +10,7 @@ from object_detection.darknet_pytorch.detector_darknet_pytorch import \
 import torch
 from object_detection.darknet_pytorch.models import Darknet
 from object_tracking.track_utils import general_utils
+from object_detection.mot16_gt_dets.mot16_gt_detector import Mot16GtDetector
 
 
 def load_model_and_classes(args):
@@ -48,4 +49,9 @@ def load_model_and_classes(args):
             args.vgg_ssd_filter_threshold), "candidate_size", str(
             args.vgg_ssd_candidate_size), "nms_method", str(
             args.vgg_ssd_nms_method)]
+    elif args.detection_model == "MOT16_gt":
+        args.from_class = "none"
+        classes = [-1]
+        params = []
+        detector = Mot16GtDetector(args=args)
     return detector, classes, params

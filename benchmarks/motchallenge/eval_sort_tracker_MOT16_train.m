@@ -2,7 +2,8 @@ benchmarkGtDir = 'MOT16/train/';
 seqmap = 'c5-train.txt';
 % res = 'res/MOT16/sort_tracker_1/';
 % res = 'res/MOT16/sort_tracker/Darknet_nms_thres_0.7_conf_thres_0.6_sort_tracker_max_age_1_min_hits_3/';
-res = 'res/MOT16/iou_tracker_from_gt_det/';
+% res = 'res/MOT16/iou_tracker_from_gt_det/';
+res = 'res/MOT16/sort_tracker/MOT16_gt__sort_tracker_max_age_1_min_hits_3/';
 [allMets, metsBenchmark] = evaluateTracking(seqmap, res, benchmarkGtDir, 'MOT16');
 
 %printf(allMets)

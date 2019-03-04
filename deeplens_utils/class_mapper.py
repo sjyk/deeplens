@@ -213,9 +213,15 @@ from_voc_name_to_mot_name = {"BACKGROUND": default_mot,
 from_voc_id_to_mot_id = get_dict_from_one_id_to_another_id(
     from_voc_id_to_voc_name, from_voc_name_to_mot_name, from_mot_name_to_mot_id)
 
+
+# The ground truth detections in the MOT benchmark do not indicate the class. It
+# is set to -1 by default and we map them arbitrarily to Pedestrians.
+from_none_id_to_mot_id = {-1: 1}
+
 mapper = {
     "from_coco_id_to_mot_id": from_coco_id_to_mot_id,
-    "from_voc_id_to_mot_id": from_voc_id_to_mot_id
+    "from_voc_id_to_mot_id": from_voc_id_to_mot_id,
+    "from_none_id_to_mot_id": from_none_id_to_mot_id
 }
 
 if __name__ == "__main__":
@@ -232,5 +238,3 @@ if __name__ == "__main__":
     assert mot_id == 1
 
     # check
-
-

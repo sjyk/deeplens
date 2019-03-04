@@ -113,6 +113,7 @@ def run_main(args, index):
             os.makedirs(args.output_path)
 
     full_output_path = os.path.join(args.output_path, args.bench_case + det_ext)
+    print("full_output_pat: ", full_output_path)
 
     # The mapper function from the classes recognized by the object detector to
     # the classes recognized by the tracker.
@@ -234,5 +235,6 @@ if __name__ == "__main__":
                  "MOT16-10", "MOT16-11", "MOT16-13"]):
             # for index, bench_case in enumerate(["MOT16-02", "MOT16-04"]):
             args.bench_case = bench_case
+            print("the bench_case: ", bench_case)
             stats = run_main(args, index)
             all_stats.append(stats)
