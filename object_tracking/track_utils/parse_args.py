@@ -48,8 +48,8 @@ def parse_args():
                         help="The type of the model for the object detection.")
     parser.add_argument("--tracker", type=str, default="mot")
     parser.add_argument('--mot_tracker', type=str,
-                        default="sort_tracker",
-                        # default="iou_tracker",
+                        # default="sort_tracker",
+                        default="iou_tracker",
                         help="The type of the mot (multi object) tracker for "
                              "the object detection.")
 
@@ -78,7 +78,7 @@ def parse_args():
                         # default="../benchmarks/motchallenge/MOT16/train/MOT16-02/det_yolo/det.txt"
                         # default="../benchmarks/motchallenge/MOT16/train/MOT16-02/det_yolo_sort/det.txt"
                         # default="../benchmarks/motchallenge/MOT16/train/MOT16-02/det_ssd_sort/"
-                        default="../benchmarks/motchallenge/res/MOT16/sort_tracker/"
+                        default="../benchmarks/motchallenge/res/MOT16/"
                         )
     parser.add_argument("--output_video",
                         # default="../benchmarks/motchallenge/MOT16/train/MOT16-02/video_det_yolo_sort/yolo_sort.mp4"

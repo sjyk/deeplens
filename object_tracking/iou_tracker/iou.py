@@ -10,10 +10,12 @@
 from time import time
 from object_tracking.interface_tracker import Tracker
 from object_tracking.iou_tracker.util import load_mot, iou
-from deeplens_utils.class_mapper import from_mot_name_to_mot_id, from_mot_id_to_mot_name
+from deeplens_utils.class_mapper import from_mot_name_to_mot_id, \
+    from_mot_id_to_mot_name
 
 person_label = [from_mot_name_to_mot_id.get("Pedestrian")]
 all_mot_labels = from_mot_id_to_mot_name.keys()
+
 
 class IouTracker(Tracker):
     def __init__(self, sigma_l=0.3, sigma_h=0.5, sigma_iou=0.3, t_min=5,
@@ -78,9 +80,9 @@ class IouTracker(Tracker):
             # dets = dets[(dets[:,score_idx] >= self.sigma_l).nonzero().squeeze(1)]
             dets = dets[dets[:, score_idx] >= self.sigma_l]
 
-            bbox = dets[:,0:score_idx]
-            scores = dets[:,score_idx]
-            labels = dets[:,label_idx]
+            bbox = dets[:, 0:score_idx]
+            scores = dets[:, score_idx]
+            labels = dets[:, label_idx]
 
             # Reformat the detections: divide the detections into 3 sections: bbox,
             # score, and label.
@@ -130,7 +132,7 @@ class IouTracker(Tracker):
                     del dets[dets.index(best_match)]
 
             # if there are not detections or the track was not updated
-            if len(dets) == 0 or track is not updated_tracks[-1]:
+            if len(updated_tracks) == 0 or track is not updated_tracks[-1]:
                 """
                 Finish tracks that are with max_score >= sigma_h, already long 
                 enough >= t_min, and did not re-emerge after t_max frames.
@@ -180,6 +182,7 @@ class IouTracker(Tracker):
             class_id = active_track['label']
             return_tracks.append([obj_id, x1, y1, x2, y2, score, class_id])
         return return_tracks
+
 
 def track_iou(detections, sigma_l, sigma_h, sigma_iou, t_min):
     """

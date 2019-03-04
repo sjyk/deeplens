@@ -104,7 +104,8 @@ def run_main(args, index):
     det_ext = ".txt"
     if index == 0:
         out_name = str(
-            args.detection_model) + "_" + str(detection_params_str) + "_" + str(
+            args.detection_model) + "_detector_" + str(
+            detection_params_str) + "_" + str(
             args.mot_tracker) + "_" + str(tracker_params_str)
         # full_output_path = os.path.join(args.output_path, out_name)
         args.output_path = os.path.join(args.output_path, out_name)
@@ -113,7 +114,7 @@ def run_main(args, index):
             os.makedirs(args.output_path)
 
     full_output_path = os.path.join(args.output_path, args.bench_case + det_ext)
-    print("full_output_pat: ", full_output_path)
+    print("full_output_path: ", full_output_path)
 
     # The mapper function from the classes recognized by the object detector to
     # the classes recognized by the tracker.
@@ -123,7 +124,7 @@ def run_main(args, index):
     with open(full_output_path, "w") as out_csv:
         while (True):
             frame_idx += 1
-            # for ii in range(3):t
+            # for ii in range(3):
             if args.input_type == "video":
                 ret, frame = vid.read()
                 frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
@@ -147,6 +148,7 @@ def run_main(args, index):
                 detection[class_id_idx] = class_mot_id
 
             if detections is not None:
+
                 tracked_objects = mot_tracker.track(detections)
 
                 # unique_labels = detections[:, -1].cpu().unique()
@@ -210,7 +212,8 @@ def run_main(args, index):
         # print header
         if index == 0:
             out.write(
-                "detector: " + args.detection_model + " tracker: " + args.mot_tracker + "\n")
+                "detector: " + args.detection_model + " tracker: " + (
+                    args.mot_tracker) + "\n")
             out.write("bench_case" + delimiter + string_params(
                 detection_params[0::2], delimiter) + delimiter + string_params(
                 tracker_params[0::2], delimiter) + delimiter + string_params(
