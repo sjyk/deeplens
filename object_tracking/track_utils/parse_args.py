@@ -28,7 +28,7 @@ def parse_args():
                              "it to work without this step are too cumbersome "
                              "to be implementeda")
     parser.add_argument('--pad_image', default="yes")
-    parser.add_argument('--conf_thres', type=float, default=0.6)
+    parser.add_argument('--conf_thres', type=float, default=0.7)
     parser.add_argument('--nms_thres', type=float, default=0.4)
 
     # Parameters for the object detection with the SSD algorithm that internally
@@ -42,14 +42,14 @@ def parse_args():
     parser.add_argument('--vgg_ssd_nms_method', type=str, default="soft")
 
     parser.add_argument('--detection_model',
-                        # default="Darknet",
+                        default="Darknet",
                         # default="vgg16-ssd",
-                        default="MOT16_gt",  # MOT16 ground truth
+                        # default="MOT16_gt",  # MOT16 ground truth
                         help="The type of the model for the object detection.")
     parser.add_argument("--tracker", type=str, default="mot")
     parser.add_argument('--mot_tracker', type=str,
-                        # default="sort_tracker",
-                        default="iou_tracker",
+                        default="sort_tracker",
+                        # default="iou_tracker",
                         help="The type of the mot (multi object) tracker for "
                              "the object detection.")
 

@@ -102,18 +102,17 @@ def run_main(args, index):
     tracker_params_str = string_params(tracker_params, "_")
 
     det_ext = ".txt"
-    if index == 0:
-        out_name = str(
-            args.detection_model) + "_detector_" + str(
-            detection_params_str) + "_" + str(
-            args.mot_tracker) + "_" + str(tracker_params_str)
-        # full_output_path = os.path.join(args.output_path, out_name)
-        args.output_path = os.path.join(args.output_path, out_name)
+    out_name = str(
+        args.detection_model) + "_detector_" + str(
+        detection_params_str) + "_" + str(
+        args.mot_tracker) + "_" + str(tracker_params_str)
+    # full_output_path = os.path.join(args.output_path, out_name)
+    output_path = os.path.join(args.output_path, out_name)
 
-        if not os.path.exists(args.output_path):
-            os.makedirs(args.output_path)
+    if not os.path.exists(output_path):
+        os.makedirs(output_path)
 
-    full_output_path = os.path.join(args.output_path, args.bench_case + det_ext)
+    full_output_path = os.path.join(output_path, args.bench_case + det_ext)
     print("full_output_path: ", full_output_path)
 
     # The mapper function from the classes recognized by the object detector to
@@ -207,7 +206,7 @@ def run_main(args, index):
     #     delimiter) + delimiter + "stats" + delimiter + string_params(
     #     stats, delimiter))
 
-    meta_file = os.path.join(args.output_path, "meta_sql_counters.txt")
+    meta_file = os.path.join(output_path, "meta_sql_counters.txt")
     with open(meta_file, "a") as out:
         # print header
         if index == 0:
@@ -231,13 +230,19 @@ if __name__ == "__main__":
     args = parse_args()
     all_stats = []
     # for nms_thres in [0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]:
-    for nms_thres in [0.7]:
+    for nms_thres in [0.4]:
         args.nms_thres = nms_thres
-        for index, bench_case in enumerate(
-                ["MOT16-02", "MOT16-04", "MOT16-05", "MOT16-09",
-                 "MOT16-10", "MOT16-11", "MOT16-13"]):
-            # for index, bench_case in enumerate(["MOT16-02", "MOT16-04"]):
-            args.bench_case = bench_case
-            print("the bench_case: ", bench_case)
-            stats = run_main(args, index)
-            all_stats.append(stats)
+        for conf_thres in [0.6]:
+            args.conf_thres = conf_thres
+            for sort_max_age in [1,2,3,4]:
+                args.sort_max_age = sort_max_age
+                for sort_min_hits in [1,2,3,4,5,6]:
+                    args.sort_min_hits = sort_min_hits
+                    for index, bench_case in enumerate(
+                            ["MOT16-02", "MOT16-04", "MOT16-05", "MOT16-09",
+                             "MOT16-10", "MOT16-11", "MOT16-13"]):
+                        # for index, bench_case in enumerate(["MOT16-02", "MOT16-04"]):
+                        args.bench_case = bench_case
+                        print("the bench_case: ", bench_case)
+                        stats = run_main(args, index)
+                        all_stats.append(stats)

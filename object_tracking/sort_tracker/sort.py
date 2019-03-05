@@ -190,6 +190,10 @@ class Sort(Tracker):
     def __init__(self, max_age=1, min_hits=3):
         """
         Sets key parameters for SORT
+
+        :param min_hits: how many times in a row the object was detected and
+        assigned to the same track.
+        :param max_age: for how many frames we do allow the object to disappear
         """
         # Tracks are terminated if they are not detected for max_age frames.
         self.max_age = max_age

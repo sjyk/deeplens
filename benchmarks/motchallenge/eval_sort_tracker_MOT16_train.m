@@ -2,9 +2,12 @@ benchmarkGtDir = 'MOT16/train/';
 seqmap = 'c5-train.txt';
 % res = 'res/MOT16/sort_tracker_1/';
 % res = 'res/MOT16/sort_tracker/Darknet_nms_thres_0.7_conf_thres_0.6_sort_tracker_max_age_1_min_hits_3/';
+% res = 'res/MOT16/Darknet_detector_nms_thres_0.4_conf_thres_0.7_sort_tracker_max_age_1_min_hits_3/Darknet_detector_nms_thres_0.4_conf_thres_0.8_sort_tracker_max_age_1_min_hits_3/';
+% res = 'res/MOT16/Darknet_detector_nms_thres_0.4_conf_thres_0.9_sort_tracker_max_age_1_min_hits_3/';
+res = 'res/MOT16/Darknet_detector_nms_thres_0.4_conf_thres_0.6_sort_tracker_max_age_1_min_hits_6/';
 % res = 'res/MOT16/iou_tracker_from_gt_det/';
 % res = 'res/MOT16/sort_tracker/MOT16_gt__sort_tracker_max_age_1_min_hits_3/';
-res = 'res/MOT16/MOT16_gt_detector__iou_tracker_sigma_l_0.3_sigma_h_0.5_sigma_iou_0.3_t_min_5_t_max_2_match_labels_False/';
+% res = 'res/MOT16/MOT16_gt_detector__iou_tracker_sigma_l_0.3_sigma_h_0.5_sigma_iou_0.3_t_min_5_t_max_2_match_labels_False/';
 [allMets, metsBenchmark] = evaluateTracking(seqmap, res, benchmarkGtDir, 'MOT16');
 
 %printf(allMets)
