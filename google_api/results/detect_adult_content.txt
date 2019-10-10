@@ -1,0 +1,43 @@
+C:\Users\adzie\Anaconda3\python.exe C:/Users/adzie/code/deeplens/google_api/detect_adult_content.py
+
+Processing video for explicit content annotations:
+
+Finished processing.
+Time: 0.729738s
+	pornography: VERY_UNLIKELY
+Time: 1.7326709999999999s
+	pornography: VERY_UNLIKELY
+Time: 2.777361s
+	pornography: VERY_UNLIKELY
+Time: 3.630112s
+	pornography: VERY_UNLIKELY
+Time: 4.630752s
+	pornography: VERY_UNLIKELY
+Time: 5.575929s
+	pornography: VERY_UNLIKELY
+Time: 6.707728s
+	pornography: VERY_UNLIKELY
+Time: 7.832161s
+	pornography: VERY_UNLIKELY
+Time: 8.919973s
+	pornography: VERY_UNLIKELY
+Time: 9.970707s
+	pornography: VERY_UNLIKELY
+Time: 10.941483999999999s
+	pornography: VERY_UNLIKELY
+Time: 11.985696s
+	pornography: VERY_UNLIKELY
+Time: 12.945546s
+	pornography: UNLIKELY
+Time: 13.960054s
+	pornography: VERY_UNLIKELY
+Time: 14.799909s
+	pornography: VERY_UNLIKELY
+Time: 15.790057000000001s
+	pornography: VERY_UNLIKELY
+Time: 16.707573s
+	pornography: VERY_UNLIKELY
+Time: 17.516625s
+	pornography: VERY_UNLIKELY
+
+Process finished with exit code 0

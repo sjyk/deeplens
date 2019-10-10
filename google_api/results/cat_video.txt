@@ -1,0 +1,53 @@
+C:\Users\adzie\Anaconda3\python.exe C:/Users/adzie/code/deeplens/google_api/python_example.py
+
+Processing video for label annotations:
+
+Finished processing.
+Video label description: maine coon
+	Label category description: cat
+	Segment 0: 0.0s to 14.84s
+	Confidence: 0.32171761989593506
+
+
+Video label description: small to medium sized cats
+	Label category description: mammal
+	Segment 0: 0.0s to 14.84s
+	Confidence: 0.7987512946128845
+
+
+Video label description: tabby cat
+	Label category description: cat
+	Segment 0: 0.0s to 14.84s
+	Confidence: 0.30844953656196594
+
+
+Video label description: animal
+	Segment 0: 0.0s to 14.84s
+	Confidence: 0.9441419243812561
+
+
+Video label description: whiskers
+	Segment 0: 0.0s to 14.84s
+	Confidence: 0.3001704514026642
+
+
+Video label description: kitten
+	Label category description: cat
+	Segment 0: 0.0s to 14.84s
+	Confidence: 0.3615228831768036
+
+
+Video label description: cat
+	Label category description: pet
+	Segment 0: 0.0s to 14.84s
+	Confidence: 0.997473955154419
+
+
+Video label description: pet
+	Label category description: animal
+	Segment 0: 0.0s to 14.84s
+	Confidence: 0.8389395475387573
+
+
+
+Process finished with exit code 0

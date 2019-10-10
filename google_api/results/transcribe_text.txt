@@ -1,0 +1,38 @@
+C:\Users\adzie\Anaconda3\python.exe C:/Users/adzie/code/deeplens/google_api/transcribe_text.py
+
+Processing video for speech transcription.
+Alternative level information:
+Transcript: Hello everyone. My name is Adam Jiu-Jitsu and I'm a fifth-year PhD student at the University of Chicago. My advisor is Professor, Sandra, Krishna. Thank you very much.
+Confidence: 0.8489207029342651
+
+Word level information:
+	0.8s - 1.0s: Hello
+	1.0s - 1.5s: everyone.
+	1.5s - 1.7000000000000002s: My
+	1.7000000000000002s - 1.9s: name
+	1.9s - 2.0s: is
+	2.0s - 2.3s: Adam
+	2.3s - 2.9s: Jiu-Jitsu
+	3.2s - 3.4s: and
+	3.4s - 3.5s: I'm
+	3.5s - 3.6s: a
+	3.6s - 4.3s: fifth-year
+	4.4s - 4.9s: PhD
+	4.9s - 5.6s: student
+	5.7s - 5.8s: at
+	5.8s - 5.8s: the
+	5.8s - 6.3s: University
+	6.3s - 6.5s: of
+	6.5s - 7.1s: Chicago.
+	7.5s - 7.6s: My
+	7.6s - 8.0s: advisor
+	8.0s - 8.2s: is
+	8.2s - 8.9s: Professor,
+	8.9s - 9.3s: Sandra,
+	9.3s - 9.8s: Krishna.
+	10.1s - 10.4s: Thank
+	10.4s - 10.4s: you
+	10.4s - 10.7s: very
+	10.7s - 11.0s: much.
+
+Process finished with exit code 0

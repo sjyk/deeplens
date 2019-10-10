@@ -121,6 +121,10 @@ resources/demo/image_depths/
 *.jpg
 *.mp4
 
+# google api credentials
+google_api/api_key.txt
+google_api/DeepLens-54f1f4c80151.json
+
 # ignore other .gitignore
 .gitignore
 

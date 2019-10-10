@@ -1,0 +1,6 @@
+No logos recognized.
+
+C:\Users\adzie\Anaconda3\python.exe C:/Users/adzie/code/deeplens/google_api/recognize_logos.py
+Waiting for operation to complete...
+
+Process finished with exit code 0

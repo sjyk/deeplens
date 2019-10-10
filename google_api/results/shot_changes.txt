@@ -1,0 +1,9 @@
+C:\Users\adzie\Anaconda3\python.exe C:/Users/adzie/code/deeplens/google_api/shot_changes.py
+
+Processing video for shot change annotations:
+
+Finished processing.
+	Shot 0: 0.0 to 5.07563
+	Shot 1: 5.109243 to 17.848739
+
+Process finished with exit code 0

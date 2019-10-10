@@ -1,0 +1,15 @@
+C:\Users\adzie\Anaconda3\python.exe C:/Users/adzie/code/deeplens/google_api/recognize_text.py
+
+Processing video for text detection.
+
+Text: De iny
+start_time: 15.22689, end_time: 15.22689
+Confidence: 0.7492803335189819
+Time offset for the first frame: 15.22689
+Rotated Bounding Box Vertices:
+	Vertex.x: 0.6260416507720947, Vertex.y: 0.5509259104728699
+	Vertex.x: 0.6556732654571533, Vertex.y: 0.5541633367538452
+	Vertex.x: 0.6550981998443604, Vertex.y: 0.5707985758781433
+	Vertex.x: 0.6254665851593018, Vertex.y: 0.5675612092018127
+
+Process finished with exit code 0

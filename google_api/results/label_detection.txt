@@ -1,0 +1,43 @@
+C:\Users\adzie\Anaconda3\python.exe C:/Users/adzie/code/deeplens/google_api/python_example.py
+
+Processing video for label annotations:
+
+Finished processing.
+Video label description: display device
+	Label category description: technology
+	Segment 0: 0.0s to 17.848739s
+	Confidence: 0.6077380180358887
+
+
+Video label description: desk
+	Label category description: furniture
+	Segment 0: 0.0s to 17.848739s
+	Confidence: 0.5080098509788513
+
+
+Video label description: personal computer
+	Label category description: computer
+	Segment 0: 0.0s to 17.848739s
+	Confidence: 0.4208546578884125
+
+
+Video label description: computer hardware
+	Label category description: computer
+	Segment 0: 0.0s to 17.848739s
+	Confidence: 0.3997071087360382
+
+
+Video label description: desktop computer
+	Label category description: computer
+	Segment 0: 0.0s to 17.848739s
+	Confidence: 0.4920197129249573
+
+
+Video label description: computer monitor
+	Label category description: technology
+	Segment 0: 0.0s to 17.848739s
+	Confidence: 0.5419874787330627
+
+
+
+Process finished with exit code 0

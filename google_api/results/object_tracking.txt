@@ -1,0 +1,836 @@
+C:\Users\adzie\Anaconda3\python.exe C:/Users/adzie/code/deeplens/google_api/object_tracking.py
+
+Processing video for object annotations:
+
+Finished processing.
+
+Entity description: shoe
+Entity id: /m/06rrc
+Segment: 0.0s to 1.512605s
+Confidence: 0.7718689441680908
+Time offset of the first frame: 0.0s
+Bounding box position:
+	left  : 0.3510783314704895
+	top   : 0.5737665891647339
+	right : 0.707236111164093
+	bottom: 0.751844048500061
+
+
+Entity description: packaged goods
+Entity id: /j/5qg9b8
+Segment: 0.0s to 0.20168s
+Confidence: 0.5656764507293701
+Time offset of the first frame: 0.0s
+Bounding box position:
+	left  : 0.4215812683105469
+	top   : 0.4085312783718109
+	right : 0.5986998081207275
+	bottom: 0.4974333643913269
+
+
+Entity description: shoe
+Entity id: /m/06rrc
+Segment: 0.0s to 0.0s
+Confidence: 0.5546596050262451
+Time offset of the first frame: 0.0s
+Bounding box position:
+	left  : 0.023837119340896606
+	top   : 0.7206941843032837
+	right : 0.16676265001296997
+	bottom: 0.8127255439758301
+
+
+Entity description: computer monitor
+Entity id: /m/02522
+Segment: 0.302521s to 0.302521s
+Confidence: 0.6081908345222473
+Time offset of the first frame: 0.302521s
+Bounding box position:from google.cloud import videointelligence_apiimport
+	left  : 0.12355922162532806
+	top   : 0.028699904680252075
+	right : 0.4621485471725464
+	bottom: 0.5185154676437378
+
+
+Entity description: boxed packaged goods
+Entity id: /j/d0mdr6
+Segment: 0.302521s to 2.218487s
+Confidence: 0.6655283570289612
+Time offset of the first frame: 0.302521s
+Bounding box position:
+	left  : 0.3757995367050171
+	top   : 0.40836650133132935
+	right : 0.529294490814209
+	bottom: 0.4997936189174652
+
+
+Entity description: packaged goods
+Entity id: /j/5qg9b8
+Segment: 0.302521s to 2.016806s
+Confidence: 0.5795468688011169
+Time offset of the first frame: 0.302521s
+Bounding box position:
+	left  : 0.384698748588562
+	top   : 0.5034482479095459
+	right : 0.5513539910316467
+	bottom: 0.5949183702468872
+
+
+Entity description: packaged goods
+Entity id: /j/5qg9b8
+Segment: 0.705882s to 1.915966s
+Confidence: 0.590785026550293
+Time offset of the first frame: 0.705882s
+Bounding box position:
+	left  : 0.09927825629711151
+	top   : 0.4544248878955841
+	right : 0.17109988629817963
+	bottom: 0.6150432825088501
+
+
+Entity description: packaged goods
+Entity id: /j/5qg9b8
+Segment: 0.705882s to 1.109243s
+Confidence: 0.5160213708877563
+Time offset of the first frame: 0.705882s
+Bounding box position:
+	left  : 0.19919906556606293
+	top   : 0.48800185322761536
+	right : 0.30522239208221436
+	bottom: 0.6171350479125977
+
+
+Entity description: packaged goods
+Entity id: /j/5qg9b8
+Segment: 0.806722s to 1.512605s
+Confidence: 0.530550479888916
+Time offset of the first frame: 0.806722s
+Bounding box position:
+	left  : 0.43798187375068665
+	top   : 0.44207483530044556
+	right : 0.5147689580917358
+	bottom: 0.56832355260849
+
+
+Entity description: packaged goods
+Entity id: /j/5qg9b8
+Segment: 0.907563s to 1.411764s
+Confidence: 0.5907553434371948
+Time offset of the first frame: 0.907563s
+Bounding box position:
+	left  : 0.028806719928979874
+	top   : 0.4644396901130676
+	right : 0.10938507318496704
+	bottom: 0.640907347202301
+
+
+Entity description: packaged goods
+Entity id: /j/5qg9b8
+Segment: 1.310924s to 3.731092s
+Confidence: 0.6597427129745483
+Time offset of the first frame: 1.310924s
+Bounding box position:
+	left  : 0.7044329047203064
+	top   : 0.6795948147773743
+	right : 0.7737561464309692
+	bottom: 0.9914438724517822
+
+
+Entity description: grooming trimmer
+Entity id: /m/0h8ntc0
+Segment: 1.411764s to 1.915966s
+Confidence: 0.7905936241149902
+Time offset of the first frame: 1.411764s
+Bounding box position:
+	left  : 0.0010861754417419434
+	top   : 0.5780069231987
+	right : 0.4118916094303131
+	bottom: 0.8253929018974304
+
+
+Entity description: computer monitor
+Entity id: /m/02522
+Segment: 1.7142849999999998s to 2.521008s
+Confidence: 0.5901498198509216
+Time offset of the first frame: 1.7142849999999998s
+Bounding box position:
+	left  : 0.08242516219615936
+	top   : 0.0018359124660491943
+	right : 0.42490702867507935
+	bottom: 0.43016940355300903
+
+
+Entity description: lighting
+Entity id: /m/019sc6
+Segment: 1.915966s to 2.924369s
+Confidence: 0.5733543634414673
+Time offset of the first frame: 1.915966s
+Bounding box position:
+	left  : 0.775187075138092
+	top   : 0.14470404386520386
+	right : 0.9500232934951782
+	bottom: 0.3647351861000061
+
+
+Entity description: packaged goods
+Entity id: /j/5qg9b8
+Segment: 2.319327s to 3.731092s
+Confidence: 0.5898911952972412
+Time offset of the first frame: 2.319327s
+Bounding box position:
+	left  : 0.5466891527175903
+	top   : 0.8361192941665649
+	right : 0.8186041116714478
+	bottom: 0.9972215294837952
+
+
+Entity description: chair
+Entity id: /m/01mzpv
+Segment: 2.420168s to 8.571428000000001s
+Confidence: 0.6763697862625122
+Time offset of the first frame: 2.420168s
+Bounding box position:
+	left  : 0.7795351147651672
+	top   : 0.1858823299407959
+	right : 0.9995381236076355
+	bottom: 0.61181640625
+
+
+Entity description: packaged goods
+Entity id: /j/5qg9b8
+Segment: 2.621848s to 2.621848s
+Confidence: 0.5604279637336731
+Time offset of the first frame: 2.621848s
+Bounding box position:
+	left  : 0.7779284119606018
+	top   : 0.08722468465566635
+	right : 0.8454392552375793
+	bottom: 0.23075062036514282
+
+
+Entity description: luggage & bags
+Entity id: /m/0hf58v5
+Segment: 3.327731s to 5.445378s
+Confidence: 0.7217825651168823
+Time offset of the first frame: 3.327731s
+Bounding box position:
+	left  : 0.9044895172119141
+	top   : 0.19389885663986206
+	right : 0.9992749691009521
+	bottom: 0.4433298110961914
+
+
+Entity description: packaged goods
+Entity id: /j/5qg9b8
+Segment: 3.731092s to 4.739495s
+Confidence: 0.5907259583473206
+Time offset of the first frame: 3.731092s
+Bounding box position:
+	left  : 0.8765187859535217
+	top   : 0.2504502534866333
+	right : 0.9812549352645874
+	bottom: 0.477609246969223
+
+
+Entity description: person
+Entity id: /m/01g317
+Segment: 4.033613s to 5.546218s
+Confidence: 0.9628029465675354
+Time offset of the first frame: 4.033613s
+Bounding box position:
+	left  : 0.8417708873748779
+	top   : 0.030337734147906303
+	right : 0.9995824694633484
+	bottom: 0.5938896536827087
+
+
+Entity description: backpack
+Entity id: /m/01940j
+Segment: 4.134453s to 4.638655s
+Confidence: 0.7501787543296814
+Time offset of the first frame: 4.134453s
+Bounding box position:
+	left  : 0.7897155284881592
+	top   : 0.35607457160949707
+	right : 0.9354314804077148
+	bottom: 0.592893660068512
+
+
+Entity description: person
+Entity id: /m/01g317
+Segment: 4.436974s to 5.546218s
+Confidence: 0.8846997618675232
+Time offset of the first frame: 4.436974s
+Bounding box position:
+	left  : 0.3231322169303894
+	top   : 0.0
+	right : 0.37519946694374084
+	bottom: 0.10824673622846603
+
+
+Entity description: chair
+Entity id: /m/01mzpv
+Segment: 4.537815s to 5.546218s
+Confidence: 0.699151337146759
+Time offset of the first frame: 4.537815s
+Bounding box position:
+	left  : 0.7758490443229675
+	top   : 0.15373989939689636
+	right : 0.9530466198921204
+	bottom: 0.6035200357437134
+
+
+Entity description: lighting
+Entity id: /m/019sc6
+Segment: 4.537815s to 4.537815s
+Confidence: 0.5397865176200867
+Time offset of the first frame: 4.537815s
+Bounding box position:
+	left  : 0.4227030575275421
+	top   : 0.19351720809936523
+	right : 0.5940150022506714
+	bottom: 0.40615004301071167
+
+
+Entity description: person
+Entity id: /m/01g317
+Segment: 4.840336s to 4.9411760000000005s
+Confidence: 0.8822659850120544
+Time offset of the first frame: 4.840336s
+Bounding box position:
+	left  : 0.47188061475753784
+	top   : 0.011435027234256268
+	right : 0.5138435959815979
+	bottom: 0.094398133456707
+
+
+Entity description: person
+Entity id: /m/01g317
+Segment: 4.9411760000000005s to 5.142857s
+Confidence: 0.8693881630897522
+Time offset of the first frame: 4.9411760000000005s
+Bounding box position:
+	left  : 0.43273162841796875
+	top   : 0.015353754162788391
+	right : 0.5332453846931458
+	bottom: 0.23487679660320282
+
+
+Entity description: packaged goods
+Entity id: /j/5qg9b8
+Segment: 5.042016s to 8.773109s
+Confidence: 0.5949604511260986
+Time offset of the first frame: 5.042016s
+Bounding box position:
+	left  : 0.7557182908058167
+	top   : 0.49045297503471375
+	right : 0.8494349122047424
+	bottom: 0.7032005190849304
+
+
+Entity description: computer keyboard
+Entity id: /m/01m2v
+Segment: 5.042016s to 9.680672s
+Confidence: 0.7810085415840149
+Time offset of the first frame: 5.042016s
+Bounding box position:
+	left  : 0.4732070863246918
+	top   : 0.4645633399486542
+	right : 0.5852556824684143
+	bottom: 0.5522181987762451
+
+
+Entity description: packaged goods
+Entity id: /j/5qg9b8
+Segment: 5.243697s to 5.243697s
+Confidence: 0.5466246008872986
+Time offset of the first frame: 5.243697s
+Bounding box position:
+	left  : 0.1424582600593567
+	top   : 0.8641682863235474
+	right : 0.22276714444160461
+	bottom: 0.9992924332618713
+
+
+Entity description: lighting
+Entity id: /m/019sc6
+Segment: 5.647058s to 5.949579s
+Confidence: 0.7215487360954285
+Time offset of the first frame: 5.647058s
+Bounding box position:
+	left  : 0.5660645961761475
+	top   : 0.14606794714927673
+	right : 0.7966201305389404
+	bottom: 0.39664533734321594
+
+
+Entity description: packaged goods
+Entity id: /j/5qg9b8
+Segment: 6.352941s to 7.058823s
+Confidence: 0.5866214036941528
+Time offset of the first frame: 6.352941s
+Bounding box position:
+	left  : 0.0022106021642684937
+	top   : 0.5094667077064514
+	right : 0.10870645940303802
+	bottom: 0.7320141196250916
+
+
+Entity description: 1d barcode
+Entity id: /j/8sk4f3
+Segment: 6.453781s to 6.453781s
+Confidence: 0.5856434106826782
+Time offset of the first frame: 6.453781s
+Bounding box position:
+	left  : 0.3765740990638733
+	top   : 0.5299076437950134
+	right : 0.5045158863067627
+	bottom: 0.7118541598320007
+
+
+Entity description: person
+Entity id: /m/01g317
+Segment: 6.554621s to 9.17647s
+Confidence: 0.9464924931526184
+Time offset of the first frame: 6.554621s
+Bounding box position:
+	left  : 0.5820261836051941
+	top   : 0.0
+	right : 0.6811234354972839
+	bottom: 0.10595379024744034
+
+
+Entity description: person
+Entity id: /m/01g317
+Segment: 7.260504s to 7.966386s
+Confidence: 0.907989501953125
+Time offset of the first frame: 7.260504s
+Bounding box position:
+	left  : 0.7705579400062561
+	top   : 0.01905013993382454
+	right : 0.8331385850906372
+	bottom: 0.12329325079917908
+
+
+Entity description: packaged goods
+Entity id: /j/5qg9b8
+Segment: 8.268907s to 8.974789s
+Confidence: 0.5277361869812012
+Time offset of the first frame: 8.268907s
+Bounding box position:
+	left  : 0.020958881825208664
+	top   : 0.6560935974121094
+	right : 0.12388975918292999
+	bottom: 0.8713759183883667
+
+
+Entity description: 1d barcode
+Entity id: /j/8sk4f3
+Segment: 8.369747s to 8.773109s
+Confidence: 0.6002393960952759
+Time offset of the first frame: 8.369747s
+Bounding box position:
+	left  : 0.42037534713745117
+	top   : 0.6600174903869629
+	right : 0.5550171732902527
+	bottom: 0.8319530487060547
+
+
+Entity description: packaged goods
+Entity id: /j/5qg9b8
+Segment: 8.773109s to 9.17647s
+Confidence: 0.5467230081558228
+Time offset of the first frame: 8.773109s
+Bounding box position:
+	left  : 0.24700522422790527
+	top   : 0.32206112146377563
+	right : 0.3793908953666687
+	bottom: 0.7487990260124207
+
+
+Entity description: computer monitor
+Entity id: /m/02522
+Segment: 9.17647s to 9.781512s
+Confidence: 0.670541524887085
+Time offset of the first frame: 9.17647s
+Bounding box position:
+	left  : 0.003620520234107971
+	top   : 0.006166398525238037
+	right : 0.27945131063461304
+	bottom: 0.5198466181755066
+
+
+Entity description: sink
+Entity id: /m/0130jx
+Segment: 9.27731s to 9.27731s
+Confidence: 0.534321129322052
+Time offset of the first frame: 9.27731s
+Bounding box position:
+	left  : 0.8381887078285217
+	top   : 0.1845274120569229
+	right : 0.9975712895393372
+	bottom: 0.285081148147583
+
+
+Entity description: packaged goods
+Entity id: /j/5qg9b8
+Segment: 9.478991s to 12.302521s
+Confidence: 0.6023575663566589
+Time offset of the first frame: 9.478991s
+Bounding box position:
+	left  : 0.35338953137397766
+	top   : 0.7595289945602417
+	right : 0.429647833108902
+	bottom: 0.9952908158302307
+
+
+Entity description: boxed packaged goods
+Entity id: /j/d0mdr6
+Segment: 9.680672s to 11.394957s
+Confidence: 0.6687852740287781
+Time offset of the first frame: 9.680672s
+Bounding box position:
+	left  : 0.0010472051799297333
+	top   : 0.3452557325363159
+	right : 0.11138796806335449
+	bottom: 0.46668899059295654
+
+
+Entity description: boxed packaged goods
+Entity id: /j/d0mdr6
+Segment: 9.680672s to 11.394957s
+Confidence: 0.6379146575927734
+Time offset of the first frame: 9.680672s
+Bounding box position:
+	left  : 0.002054646611213684
+	top   : 0.5605299472808838
+	right : 0.138688325881958
+	bottom: 0.6509366035461426
+
+
+Entity description: shoe
+Entity id: /m/06rrc
+Segment: 10.285714s to 10.285714s
+Confidence: 0.9095191955566406
+Time offset of the first frame: 10.285714s
+Bounding box position:
+	left  : 0.41065970063209534
+	top   : 0.5388468503952026
+	right : 0.5057035684585571
+	bottom: 0.9729956984519958
+
+
+Entity description: boxed packaged goods
+Entity id: /j/d0mdr6
+Segment: 11.193277s to 11.394957s
+Confidence: 0.6179922223091125
+Time offset of the first frame: 11.193277s
+Bounding box position:
+	left  : 0.5673920512199402
+	top   : 0.002313956618309021
+	right : 0.7019849419593811
+	bottom: 0.3022392988204956
+
+
+Entity description: shoe
+Entity id: /m/06rrc
+Segment: 11.394957s to 13.109243s
+Confidence: 0.6364383697509766
+Time offset of the first frame: 11.394957s
+Bounding box position:
+	left  : 0.5412796139717102
+	top   : 0.3245723843574524
+	right : 0.6304201483726501
+	bottom: 0.7243078351020813
+
+
+Entity description: box
+Entity id: /m/025dyy
+Segment: 11.596638s to 11.596638s
+Confidence: 0.517082154750824
+Time offset of the first frame: 11.596638s
+Bounding box position:
+	left  : 0.35617050528526306
+	top   : 0.4560680091381073
+	right : 0.8616392612457275
+	bottom: 0.9955774545669556
+
+
+Entity description: tubed packaged goods
+Entity id: /j/1971bm
+Segment: 11.697478s to 11.697478s
+Confidence: 0.5464797616004944
+Time offset of the first frame: 11.697478s
+Bounding box position:
+	left  : 0.2505870759487152
+	top   : 0.0
+	right : 0.3429528772830963
+	bottom: 0.11486062407493591
+
+
+Entity description: table
+Entity id: /m/04bcr3
+Segment: 12.10084s to 12.20168s
+Confidence: 0.5699727535247803
+Time offset of the first frame: 12.10084s
+Bounding box position:
+	left  : 0.34377431869506836
+	top   : 0.3870536684989929
+	right : 0.8447543382644653
+	bottom: 0.9926421046257019
+
+
+Entity description: shoe
+Entity id: /m/06rrc
+Segment: 12.10084s to 13.915966s
+Confidence: 0.6999180316925049
+Time offset of the first frame: 12.10084s
+Bounding box position:
+	left  : 0.0
+	top   : 0.024143584072589874
+	right : 0.3156062960624695
+	bottom: 0.17909038066864014
+
+
+Entity description: bag
+Entity id: /m/0n5v01m
+Segment: 12.504201s to 12.504201s
+Confidence: 0.726359486579895
+Time offset of the first frame: 12.504201s
+Bounding box position:
+	left  : 0.5282338857650757
+	top   : 0.6403179168701172
+	right : 0.8245658874511719
+	bottom: 0.8882918357849121
+
+
+Entity description: boxed packaged goods
+Entity id: /j/d0mdr6
+Segment: 12.705882s to 12.907563s
+Confidence: 0.5685975551605225
+Time offset of the first frame: 12.705882s
+Bounding box position:
+	left  : 0.6590041518211365
+	top   : 0.2699151337146759
+	right : 0.7525295615196228
+	bottom: 0.657289981842041
+
+
+Entity description: boxed packaged goods
+Entity id: /j/d0mdr6
+Segment: 12.907563s to 17.647058s
+Confidence: 0.6192737817764282
+Time offset of the first frame: 12.907563s
+Bounding box position:
+	left  : 0.29399338364601135
+	top   : 0.021364111453294754
+	right : 0.48208001255989075
+	bottom: 0.10962685942649841
+
+
+Entity description: boxed packaged goods
+Entity id: /j/d0mdr6
+Segment: 12.907563s to 14.117647s
+Confidence: 0.62245112657547
+Time offset of the first frame: 12.907563s
+Bounding box position:
+	left  : 0.15284565091133118
+	top   : 0.06850948929786682
+	right : 0.30423441529273987
+	bottom: 0.21307194232940674
+
+
+Entity description: shoe
+Entity id: /m/06rrc
+Segment: 13.210084s to 13.310924s
+Confidence: 0.6726022958755493
+Time offset of the first frame: 13.210084s
+Bounding box position:
+	left  : 0.009250751696527004
+	top   : 0.19231167435646057
+	right : 0.2423730194568634
+	bottom: 0.39329513907432556
+
+
+Entity description: shoe
+Entity id: /m/06rrc
+Segment: 13.310924s to 13.411764s
+Confidence: 0.7150523066520691
+Time offset of the first frame: 13.310924s
+Bounding box position:
+	left  : 0.0002648681402206421
+	top   : 0.3362972140312195
+	right : 0.1524074822664261
+	bottom: 0.4325004816055298
+
+
+Entity description: packaged goods
+Entity id: /j/5qg9b8
+Segment: 13.310924s to 13.411764s
+Confidence: 0.5662198066711426
+Time offset of the first frame: 13.310924s
+Bounding box position:
+	left  : 0.882948637008667
+	top   : 0.5028100609779358
+	right : 1.0
+	bottom: 0.9697428345680237
+
+
+Entity description: boxed packaged goods
+Entity id: /j/d0mdr6
+Segment: 13.310924s to 17.445378s
+Confidence: 0.7102751135826111
+Time offset of the first frame: 13.310924s
+Bounding box position:
+	left  : 0.44493818283081055
+	top   : 0.20083989202976227
+	right : 0.6043248772621155
+	bottom: 0.25132057070732117
+
+
+Entity description: table
+Entity id: /m/04bcr3
+Segment: 13.512605s to 14.621848s
+Confidence: 0.5779110789299011
+Time offset of the first frame: 13.512605s
+Bounding box position:
+	left  : 0.0
+	top   : 0.21594509482383728
+	right : 0.9919329881668091
+	bottom: 0.9935094118118286
+
+
+Entity description: boxed packaged goods
+Entity id: /j/d0mdr6
+Segment: 13.613445s to 14.823529s
+Confidence: 0.6067668795585632
+Time offset of the first frame: 13.613445s
+Bounding box position:
+	left  : 0.31800419092178345
+	top   : 0.2172628939151764
+	right : 0.480255663394928
+	bottom: 0.37479302287101746
+
+
+Entity description: sunglasses
+Entity id: /m/017ftj
+Segment: 13.915966s to 15.630252s
+Confidence: 0.5608972311019897
+Time offset of the first frame: 13.915966s
+Bounding box position:
+	left  : 0.015833713114261627
+	top   : 0.43565526604652405
+	right : 0.14803820848464966
+	bottom: 0.5254340171813965
+
+
+Entity description: computer keyboard
+Entity id: /m/01m2v
+Segment: 14.823529s to 15.831932s
+Confidence: 0.5369539260864258
+Time offset of the first frame: 14.823529s
+Bounding box position:
+	left  : 0.31620508432388306
+	top   : 0.6217458844184875
+	right : 0.6916850209236145
+	bottom: 0.7899320721626282
+
+
+Entity description: computer monitor
+Entity id: /m/02522
+Segment: 15.02521s to 17.344537s
+Confidence: 0.5967352986335754
+Time offset of the first frame: 15.02521s
+Bounding box position:
+	left  : 0.5457664132118225
+	top   : 0.065437451004982
+	right : 0.8982248902320862
+	bottom: 0.5226072669029236
+
+
+Entity description: computer monitor
+Entity id: /m/02522
+Segment: 15.02521s to 15.327731s
+Confidence: 0.6115125417709351
+Time offset of the first frame: 15.02521s
+Bounding box position:
+	left  : 0.2280675321817398
+	top   : 0.06571592390537262
+	right : 0.5633677244186401
+	bottom: 0.5079512000083923
+
+
+Entity description: table top
+Entity id: /j/984ysm
+Segment: 15.327731s to 15.831932s
+Confidence: 0.5133464336395264
+Time offset of the first frame: 15.327731s
+Bounding box position:
+	left  : 0.0
+	top   : 0.4323400855064392
+	right : 0.9931541681289673
+	bottom: 0.99834144115448
+
+
+Entity description: shoe
+Entity id: /m/06rrc
+Segment: 16.134453s to 16.840336s
+Confidence: 0.513149619102478
+Time offset of the first frame: 16.134453s
+Bounding box position:
+	left  : 0.2970587909221649
+	top   : 0.6118090152740479
+	right : 0.6754025220870972
+	bottom: 0.790819525718689
+
+
+Entity description: packaged goods
+Entity id: /j/5qg9b8
+Segment: 16.336134s to 16.840336s
+Confidence: 0.5403986573219299
+Time offset of the first frame: 16.336134s
+Bounding box position:
+	left  : 0.8798550367355347
+	top   : 0.7849863767623901
+	right : 0.9978384375572205
+	bottom: 0.9707947969436646
+
+
+Entity description: packaged goods
+Entity id: /j/5qg9b8
+Segment: 16.840336s to 17.747899s
+Confidence: 0.5353814363479614
+Time offset of the first frame: 16.840336s
+Bounding box position:
+	left  : 0.897064745426178
+	top   : 0.5940552949905396
+	right : 0.9982572793960571
+	bottom: 0.8308409452438354
+
+
+Entity description: sunglasses
+Entity id: /m/017ftj
+Segment: 16.840336s to 17.546218s
+Confidence: 0.5366736054420471
+Time offset of the first frame: 16.840336s
+Bounding box position:
+	left  : 0.0001898445188999176
+	top   : 0.6789478659629822
+	right : 0.11299550533294678
+	bottom: 0.7651296257972717
+
+
+Entity description: packaged goods
+Entity id: /j/5qg9b8
+Segment: 17.445378s to 17.848739s
+Confidence: 0.6950940489768982
+Time offset of the first frame: 17.445378s
+Bounding box position:
+	left  : 0.4422755837440491
+	top   : 0.48355454206466675
+	right : 0.6405935883522034
+	bottom: 0.5487232208251953
+
+
+
+Process finished with exit code 0
