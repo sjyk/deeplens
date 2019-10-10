@@ -1,0 +1,7 @@
+Image classification 	Free 	Paid
+Training 	1 node hour per account for the first 10 models each month 	Subsequent training hours are USD$20.00 per hour
+Prediction 	First 1,000 images are free 	For 1,001–5,000,000 images*, the price is $3 per 1,000 images
+
+https://cloud.google.com/vision/automl/pricing?authuser=2
+
+

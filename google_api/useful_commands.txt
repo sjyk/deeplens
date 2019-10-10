@@ -1,0 +1,20 @@
+Install google cloud sdk: https://cloud.google.com/sdk/docs/quickstarts?authuser=2
+
+Upload vidoe to the google cloud storage:
+gsutil cp C:\Users\adzie\code\deeplens\resources\videos\introduction.mp4 gs://deeplens-videos
+
+
+C:\Program Files (x86)\Google\Cloud SDK>gsutil cp C:\Users\adzie\code\deeplens\resources\videos\introduction.mp4 gs://deeplens-videos
+Copying file://C:\Users\adzie\code\deeplens\resources\videos\introduction.mp4 [Content-Type=video/mp4]...
+\ [1 files][ 16.7 MiB/ 16.7 MiB]    4.9 MiB/s
+Operation completed over 1 objects/16.7 MiB.
+
+C:\Program Files (x86)\Google\Cloud SDK>
+
+Remove the videos:
+
+C:\Program Files (x86)\Google\Cloud SDK>gsutil rm gs://deeplens-videos/*
+Removing gs://deeplens-videos/introduction.mp4...
+Removing gs://deeplens-videos/my_desk.mp4...
+/ [2 objects]
+Operation completed over 2 objects.
